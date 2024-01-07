@@ -1,0 +1,20 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-gateway-fabric
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: kube-system
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: helm/nginx-gateway-fabric
+    repoURL: 'https://github.com/rhoades-brown/argo-config.git'
+    targetRevision: initial
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
