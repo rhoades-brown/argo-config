@@ -1,0 +1,17 @@
+apiVersion: v2
+appVersion: 1.1.0
+description: NGINX Gateway Fabric
+home: https://github.com/nginxinc/nginx-gateway-fabric
+icon: https://raw.githubusercontent.com/nginxinc/nginx-gateway-fabric/v1.1.0/deploy/helm-chart/chart-icon.png
+keywords:
+- kubernetes
+- gateway
+- nginx
+maintainers:
+- email: kubernetes@nginx.com
+  name: nginxinc
+name: nginx-gateway-fabric
+sources:
+- https://github.com/nginxinc/nginx-gateway-fabric/tree/v1.1.0/deploy/helm-chart
+type: application
+version: 1.1.0
