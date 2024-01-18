@@ -10,20 +10,13 @@ spec:
     namespace: metallb-system
     server: 'https://kubernetes.default.svc'
   sources:
-    - repoURL: 'https://metallb.github.io/metallb'
-      targetRevision: 0.13.12
-      chart: metallb
-      helm:
+    repoURL: 'https://metallb.github.io/metallb'
+    targetRevision: 0.13.12
+    chart: metallb
+    helm:
  #     parameters:
  #       - name: installCRDs
  #         value: 'true'
-    - path: helm/metallb-config
-      repoURL: 'https://github.com/rhoades-brown/argo-config.git'
-      targetRevision: initial
-      helm:
-      parameters:
-         - name: ipAddressRange[0]
-           value: '192.168.1.70'
   project: default
   syncPolicy:
     managedNamespaceMetadata:
