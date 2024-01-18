@@ -14,7 +14,9 @@ spec:
     targetRevision: 4.9.0
     chart: ingress-nginx
     helm:
-      parameters: []
+      parameters:
+        - name: controller.ingressClassResource.default
+          value: 'true'
   project: default
   syncPolicy:
 #    managedNamespaceMetadata:
