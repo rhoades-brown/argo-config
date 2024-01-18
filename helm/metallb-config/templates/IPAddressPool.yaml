@@ -5,7 +5,7 @@ metadata:
   name: {{ .Values.poolName }}
   namespace: metallb-system
   labels:
-    {{- include "metalb-config.labels" . | nindent 4 }}
+    {{- include "metalllb-config.labels" . | nindent 4 }}
 spec:
   addresses:
     {{- range .Values.ipAddressRange }}
