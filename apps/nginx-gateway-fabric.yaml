@@ -13,8 +13,19 @@ spec:
     path: helm/nginx-gateway-fabric
     repoURL: 'https://github.com/rhoades-brown/argo-config.git'
     targetRevision: initial
+    helm:
+      parameters:
+        - name: nginxGateway.securityContext.allowPrivilegeEscalation
+          value: 'true'
+        - name: nginxGateway.readinessProbe.enable
+          value: 'false'
   project: default
   syncPolicy:
+    managedNamespaceMetadata:
+      labels: # The labels to set on the application namespace
+        pod-security.kubernetes.io/enforce: privileged
+        pod-security.kubernetes.io/audit: privileged
+        pod-security.kubernetes.io/warn: privileged
     automated:
       prune: true
       selfHeal: true
