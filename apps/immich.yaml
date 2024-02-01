@@ -1,0 +1,53 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: immich
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: immich
+    server: 'https://kubernetes.default.svc'
+  source:
+    repoURL: 'https://immich-app.github.io/immich-charts'
+    targetRevision: 0.3.1
+    chart: immich
+    helm:
+      values: |
+        immich:
+          persistence:
+            # Main data store for all photos shared between different components.
+            library:
+              # Automatically creating the library volume is not supported by this chart
+              # You have to specify an existing PVC to use
+              existingClaim: immich
+
+        server:
+          enabled: true
+          image:
+            repository: ghcr.io/immich-app/immich-server
+            pullPolicy: IfNotPresent
+          
+          ingress:
+            main:
+              enabled: false
+              annotations:
+                # proxy-body-size is set to 0 to remove the body limit on file uploads
+                nginx.ingress.kubernetes.io/proxy-body-size: "0"
+              hosts:
+                - host: immich.services.rhoades-brown.local
+                  paths:
+                    - path: "/"
+              tls: []
+          postgresql:
+            enabled: false
+          redis:
+            enabled: false
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
