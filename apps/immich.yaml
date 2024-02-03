@@ -34,7 +34,7 @@ spec:
             
             ingress:
               main:
-                enabled: false
+                enabled: true
                 annotations:
                   # proxy-body-size is set to 0 to remove the body limit on file uploads
                   nginx.ingress.kubernetes.io/proxy-body-size: "0"
@@ -43,10 +43,10 @@ spec:
                     paths:
                       - path: "/"
                 tls: []
-            postgresql:
-              enabled: false
-            redis:
-              enabled: false
+          postgresql:
+            enabled: true
+          redis:
+            enabled: true
   project: default
   syncPolicy:
     automated:
