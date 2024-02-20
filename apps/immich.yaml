@@ -10,9 +10,6 @@ spec:
     namespace: immich
     server: "https://kubernetes.default.svc"
   sources:
-    - path: other/immich
-      repoURL: 'https://github.com/rhoades-brown/argo-config.git'
-      targetRevision: initial
     - repoURL: "https://immich-app.github.io/immich-charts"
       targetRevision: 0.3.1
       chart: immich
@@ -47,6 +44,9 @@ spec:
             enabled: true
           redis:
             enabled: true
+    - path: other/immich
+      repoURL: 'https://github.com/rhoades-brown/argo-config.git'
+      targetRevision: initial
   project: default
   syncPolicy:
     automated:
