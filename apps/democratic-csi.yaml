@@ -15,7 +15,7 @@ spec:
     targetRevision: initial
     helm:
       valueFiles:
-        - ../valuesfiles/democratic-csi.yaml
+        - ../../democratic-csi.yaml
   project: default
   syncPolicy:
     managedNamespaceMetadata:
