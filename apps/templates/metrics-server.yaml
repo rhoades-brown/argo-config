@@ -1,0 +1,22 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metrics-server
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    {{- include "apps.labels" . | nindent 4 }}
+spec:
+  destination:
+    namespace: kube-system
+    server: 'https://kubernetes.default.svc'
+  source:
+    repoURL: 'https://kubernetes-sigs.github.io/metrics-server/'
+    targetRevision: 3.11.0
+    chart: metrics-server
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

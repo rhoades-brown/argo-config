@@ -1,0 +1,61 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: unifi
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: unifi
+    server: "https://kubernetes.default.svc"
+  source:
+    repoURL: "https://k8s-at-home.com/charts/"
+    targetRevision: 5.1.2
+    chart: unifi
+    helm:
+      valuesObject:
+        ingress:
+          # -- Enable and configure ingress settings for the chart under this key.
+          # @default -- See values.yaml
+          main:
+            enabled: true
+            annotations:
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+            hosts:
+              - host: unifi.services.rhoades-brown.local
+                paths:
+                  - path: /
+          portal:
+            enabled: true
+            annotations:
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+            hosts:
+              - host: unifi-portal.services.rhoades-brown.local
+                paths:
+                  - path: /
+        service:
+          udp:
+            enabled: true
+            type: LoadBalancer
+            # <your other service configuration>
+            ports:
+              stun:
+                enabled: true
+                port: 3478
+                protocol: UDP
+              syslog:
+                enabled: true
+                port: 5514
+                protocol: UDP
+              discovery:
+                enabled: true
+                port: 10001
+                protocol: UDP
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

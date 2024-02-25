@@ -1,0 +1,28 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metallb-config
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    {{- include "apps.labels" . | nindent 4 }}
+spec:
+  destination:
+    namespace: metallb-system
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: helm/metallb-config
+    repoURL: 'https://github.com/rhoades-brown/argo-config.git'
+    targetRevision: {{ .Values.targetRevision }}
+    helm:
+      parameters:
+        - name: poolName
+          value: default-pool
+        - name: ipAddressRange[0]
+          value: '192.168.1.69/29'
+  project: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true

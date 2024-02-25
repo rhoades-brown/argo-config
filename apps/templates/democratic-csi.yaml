@@ -1,0 +1,66 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: democratic-csi
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    {{- include "apps.labels" . | nindent 4 }}
+spec:
+  destination:
+    namespace: democratic-csi
+    server: 'https://kubernetes.default.svc'
+  source:
+    repoURL: 'https://democratic-csi.github.io/charts/'
+    targetRevision: 0.14.5
+    chart: democratic-csi
+    helm:
+      values: |-
+        csiDriver:
+          # should be globally unique for a given cluster
+          name: "org.democratic-csi.nfs"
+
+        storageClasses:
+        - name: freenas-nfs-csi
+          defaultClass: true
+          reclaimPolicy: Delete
+          volumeBindingMode: Immediate
+          allowVolumeExpansion: true
+          parameters:
+            # for block-based storage can be ext3, ext4, xfs
+            # for nfs should be nfs
+            fsType: nfs
+
+        volumeSnapshotClasses:
+        - name: nfs
+          parameters:
+            detachedSnapshots: "true"
+
+          mountOptions:
+          - noatime
+          - nfsvers=3
+          secrets:
+            provisioner-secret:
+            controller-publish-secret:
+            node-stage-secret:
+            node-publish-secret:
+            controller-expand-secret:
+
+        driver:
+          config:
+            driver: freenas-api-nfs
+          existingConfigSecret: democratic-csi-driver-config
+
+  project: default
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels: # The labels to set on the application namespace
+        pod-security.kubernetes.io/enforce: privileged
+        pod-security.kubernetes.io/audit: privileged
+        pod-security.kubernetes.io/warn: privileged
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,35 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    {{- include "apps.labels" . | nindent 4 }}
+spec:
+  destination:
+    namespace: ingress-nginx
+    server: 'https://kubernetes.default.svc'
+  source:
+    repoURL: https://kubernetes.github.io/ingress-nginx
+    targetRevision: 4.9.0
+    chart: ingress-nginx
+    helm:
+      values: |
+        controller:
+          service:
+            annotations:
+              metallb.universe.tf/loadBalancerIPs: 192.168.1.70
+          extraArgs:
+            default-ssl-certificate: "default/ingress"
+      parameters:
+        - name: controller.ingressClassResource.default
+          value: 'true'
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
