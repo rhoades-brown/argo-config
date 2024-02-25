@@ -48,7 +48,7 @@ spec:
             enabled: true
     - path: other/immich
       repoURL: 'https://github.com/rhoades-brown/argo-config.git'
-      targetRevision: initial
+      targetRevision: {{ .Values.targetRevision }}
   project: default
   syncPolicy:
     automated:

@@ -12,7 +12,7 @@ spec:
   source:
     path: helm/nginx-gateway-fabric
     repoURL: 'https://github.com/rhoades-brown/argo-config.git'
-    targetRevision: initial
+    targetRevision: {{ .Values.targetRevision }}
     helm:
       parameters:
         - name: nginxGateway.securityContext.allowPrivilegeEscalation

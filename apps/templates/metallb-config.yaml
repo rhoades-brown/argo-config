@@ -14,7 +14,7 @@ spec:
   source:
     path: helm/metallb-config
     repoURL: 'https://github.com/rhoades-brown/argo-config.git'
-    targetRevision: initial
+    targetRevision: {{ .Values.targetRevision }}
     helm:
       parameters:
         - name: poolName
