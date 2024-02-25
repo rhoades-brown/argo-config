@@ -5,6 +5,8 @@ metadata:
   name: immich
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+  labels:
+    {{- include "apps.labels" . | nindent 4 }}
 spec:
   destination:
     namespace: immich
