@@ -7,14 +7,14 @@ metadata:
 spec:
   destination:
     name: ''
-    namespace: cloudflare
+    namespace: cloudflare-operator-system
     server: 'https://kubernetes.default.svc'
   source:
     repoURL: 'https://github.com/adyanth/cloudflare-operator.git'
     path: config/default
     targetRevision: main
     kustomize:
-      namespace: cloudflare
+      namespace: cloudflare-operator-system
   sources: []
   project: default
   syncPolicy:
