@@ -1,0 +1,14 @@
+apiVersion: networking.cfargotunnel.com/v1alpha1
+kind: TunnelBinding
+metadata:
+  name: immich-tunnel
+subjects:
+  - name: immich-server
+    kind: Service
+    spec:
+      fqdn: immich.rhoades-brown.co.uk
+      protocol: http
+      target: http://immich-server.immich:3001
+tunnelRef:
+  kind: ClusterTunnel
+  name: k3s-cluster-tunnel
