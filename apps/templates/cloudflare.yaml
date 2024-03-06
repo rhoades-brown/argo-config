@@ -1,0 +1,29 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloudflared
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    {{- include "apps.labels" . | nindent 4 }}
+spec:
+  destination:
+    namespace: cloudflared
+    server: 'https://kubernetes.default.svc'
+  source:
+    repoURL: 'https://cloudflare.github.io/helm-charts'
+    targetRevision: 0.3.0
+    chart: cloudflare-tunnel
+    helm:
+      values: |
+        cloudflare:
+          secretName: clourflare
+
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
