@@ -1,0 +1,26 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-prometheus-stack
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    name: ''
+    namespace: kube-prometheus-stack
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ''
+    repoURL: 'https://prometheus-community.github.io/helm-charts'
+    targetRevision: 57.0.3
+    chart: kube-prometheus-stack
+  sources: []
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - CreateNamespace=true
