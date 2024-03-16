@@ -1,0 +1,56 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transmission
+  namespace: transmission
+  labels:
+    app: transmission
+spec:
+  selector:
+    matchLabels:
+      app: transmission
+  template:
+    metadata:
+      labels:
+        app: transmission
+    spec:
+      containers:
+        - name: transmission
+          image: lscr.io/linuxserver/transmission:latest
+          env:
+            - name: TZ
+              value: "Europe/London"
+            - name: USER
+              value: "admin"
+            - name: PASS
+              value: "password"
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+          ports:
+            - name: web
+              containerPort: 9091
+            - containerPort: 51413
+          volumeMounts:
+            - name: other-vol
+              mountPath: /downloads
+            - name: transmission-config
+              mountPath: /config
+          resources:
+            requests:
+              memory: 128Mi
+              cpu: 100m
+            limits:
+              cpu: 2
+              memory: 1024Mi
+      volumes:
+        - name: other-vol
+          nfs:
+            server: truenas.rhoades-brown.local
+            path: /mnt/RustyPool/Other
+        - name: transmission-config
+          persistentVolumeClaim:
+            claimName: transmission-storage
+

@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: transmission
+  namespace: transmission
+spec:
+  ports:
+    - protocol: TCP
+      name: web
+      port: 9091
+  selector:
+    app: transmission
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: 192.168.1.69
+  name: transmission-direct
+  namespace: transmission
+spec:
+  ports:
+    - port: 51413
+      name: torrent-tcp
+      protocol: TCP
+    - port: 51413
+      name: torrent-udp
+      protocol: UDP
+  type: LoadBalancer
+  selector:
+    app: transmission
+status:
+  loadBalancer:

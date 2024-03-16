@@ -6,19 +6,15 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    name: ''
     namespace: transmission
     server: 'https://kubernetes.default.svc'
   source:
-    path: ''
-    repoURL: 'https://charts.truecharts.org/'
-    targetRevision: 20.5.2
-    chart: transmission
-  sources: []
+    path: helm/transmission
+    repoURL: 'https://github.com/rhoades-brown/argo-config.git'
+    targetRevision: {{ .Values.targetRevision }}
   project: default
   syncPolicy:
     automated:
-      prune: false
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
