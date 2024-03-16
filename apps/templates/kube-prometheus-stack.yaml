@@ -7,22 +7,38 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    name: ''
+    name: ""
     namespace: kube-prometheus-stack
-    server: 'https://kubernetes.default.svc'
+    server: "https://kubernetes.default.svc"
   source:
-    path: ''
-    repoURL: 'https://prometheus-community.github.io/helm-charts'
+    path: ""
+    repoURL: "https://prometheus-community.github.io/helm-charts"
     targetRevision: 57.0.3
     chart: kube-prometheus-stack
     helm:
-      parameters:
-        - name: alertmanager.ingress.enabled
-          value: 'true'
-        - name: grafana.ingress.enabled
-          value: 'true'
-        - name: prometheus.ingress.enabled
-          value: 'true'
+        values: |
+          alertmanager:
+            ingress:
+              enabled: true
+              hosts:
+              - alertmanager.services.rhoades-brown.local
+              annotations:
+                nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+          
+          grafana:
+            ingress:
+              enabled: true
+              hosts:
+              - grafana.services.rhoades-brown.local
+              annotations:
+                nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+          prometheus:
+            ingress:
+              enabled: true
+              hosts:
+              - prometheus.services.rhoades-brown.local
+              annotations:
+                nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 
   sources: []
   project: default
