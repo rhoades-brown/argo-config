@@ -15,6 +15,15 @@ spec:
     repoURL: 'https://prometheus-community.github.io/helm-charts'
     targetRevision: 57.0.3
     chart: kube-prometheus-stack
+    helm:
+      parameters:
+        - name: alertmanager.ingress.enabled
+          value: 'true'
+        - name: grafana.ingress.enabled
+          value: 'true'
+        - name: prometheus.ingress.enabled
+          value: 'true'
+
   sources: []
   project: default
   syncPolicy:
