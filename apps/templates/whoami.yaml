@@ -1,0 +1,21 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: whoami
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: whoami
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: helm/whoami
+    repoURL: 'https://github.com/rhoades-brown/argo-config.git'
+    targetRevision: {{ .Values.targetRevision }}
+  project: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
