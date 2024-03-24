@@ -37,7 +37,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: port
+            - name: WHOAMI_PORT_NUMBER
               value: {{ .Values.service.port | quote }}
           ports:
             - name: http
