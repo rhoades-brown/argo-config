@@ -21,6 +21,8 @@ spec:
             tag: v1.102.3
 
           immich:
+            metrics:
+              enabled: true
             persistence:
               # Main data store for all photos shared between different components.
               library:
