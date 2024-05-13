@@ -18,7 +18,7 @@ spec:
       helm:
         values: |
           image:
-            tag: v1.103.1
+            tag: v1.104.0
 
           immich:
             metrics:
