@@ -17,6 +17,9 @@ spec:
       chart: immich
       helm:
         values: |
+          image:
+            tag: v1.106.4
+
           immich:
             metrics:
               enabled: true
