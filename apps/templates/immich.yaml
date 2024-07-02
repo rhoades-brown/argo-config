@@ -32,9 +32,6 @@ spec:
 
           server:
             enabled: true
-            image:
-              repository: ghcr.io/immich-app/immich-server
-              pullPolicy: IfNotPresent
             
             ingress:
               main:
