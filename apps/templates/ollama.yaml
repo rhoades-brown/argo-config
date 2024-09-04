@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ollama
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: ollama
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: helm/ollama
+    repoURL: 'https://github.com/rhoades-brown/argo-config.git'
+    targetRevision: {{ .Values.targetRevision }}
+  project: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
