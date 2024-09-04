@@ -9,12 +9,24 @@ spec:
     namespace: ollama
     server: 'https://kubernetes.default.svc'
   source:
-    path: helm/ollama
-    repoURL: 'https://github.com/rhoades-brown/argo-config.git'
-    targetRevision: {{ .Values.targetRevision }}
+    repoURL:  https://otwld.github.io/ollama-helm/
+    targetRevision: 0.57.0
+    chart: ollama
+    helm:
+      values: |
+        ollama:
+          models:
+            - llama3
+        persistentVolume:
+          enabled: true
+
+
   project: default
   syncPolicy:
     automated:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+
+
+     
