@@ -13,7 +13,7 @@ spec:
   source:
     path: ""
     repoURL: "https://prometheus-community.github.io/helm-charts"
-    targetRevision: 61.1.1
+    targetRevision: 62.4.0
     chart: kube-prometheus-stack
     helm:
         values: |
