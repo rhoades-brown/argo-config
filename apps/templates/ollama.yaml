@@ -19,6 +19,13 @@ spec:
             - llama3
         persistentVolume:
           enabled: true
+        ingress:
+          enabled: true
+          hosts:
+            - host: ollama.services.rhoades-brown.local
+              paths:
+                - path: /
+                  pathType: Prefix
 
 
   project: default
