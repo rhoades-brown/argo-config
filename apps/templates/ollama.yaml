@@ -16,7 +16,8 @@ spec:
       values: |
         ollama:
           models:
-            - llama3
+            - llama3.1
+            - starcoder2:3b
         persistentVolume:
           enabled: true
         ingress:
@@ -26,7 +27,11 @@ spec:
               paths:
                 - path: /
                   pathType: Prefix
-
+        resources:
+          requests:
+            memory: 6Gi
+          limits: 
+             memory: 12Gi
 
   project: default
   syncPolicy:
