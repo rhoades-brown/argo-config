@@ -2,6 +2,8 @@ apiVersion: networking.cfargotunnel.com/v1alpha1
 kind: TunnelBinding
 metadata:
   name: immich-tunnel
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 subjects:
   - name: immich-server
     kind: Service
