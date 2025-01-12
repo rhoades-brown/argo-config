@@ -13,7 +13,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     repoURL: 'https://democratic-csi.github.io/charts/'
-    targetRevision: 0.14.6
+    targetRevision: 0.14.7
     chart: democratic-csi
     helm:
       values: |-

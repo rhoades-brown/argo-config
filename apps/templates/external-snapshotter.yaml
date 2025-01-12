@@ -6,14 +6,12 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    name: ""
     namespace: kube-system
     server: https://kubernetes.default.svc
   source:
     path: client/config/crd
     repoURL: https://github.com/kubernetes-csi/external-snapshotter.git
     targetRevision: v8.2.0
-  sources: []
   project: default
   syncPolicy:
     automated:
