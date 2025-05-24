@@ -11,8 +11,8 @@ spec:
   destination:
     namespace: ingress-nginx
     server: 'https://kubernetes.default.svc'
-  source:
-    repoURL: https://kubernetes.github.io/ingress-nginx
+  sources:
+  - repoURL: https://kubernetes.github.io/ingress-nginx
     targetRevision: 4.11.2
     chart: ingress-nginx
     helm:
@@ -22,10 +22,13 @@ spec:
             annotations:
               metallb.universe.tf/loadBalancerIPs: 192.168.1.70
           extraArgs:
-            default-ssl-certificate: "default/ingress"
+            default-ssl-certificate: "ingress-nginx/ingress"
       parameters:
         - name: controller.ingressClassResource.default
           value: 'true'
+  - repoURL: https://github.com/rhoades-brown/argo-config
+    targetRevision: main
+    path: manifests/ingress-nginx
   project: default
   syncPolicy:
     automated:
