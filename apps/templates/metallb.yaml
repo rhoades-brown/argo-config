@@ -15,15 +15,15 @@ spec:
       kind: CustomResourceDefinition
   destination:
     namespace: metallb-system
-    server: 'https://kubernetes.default.svc'
+    server: "https://kubernetes.default.svc"
   source:
-    repoURL: 'https://metallb.github.io/metallb'
-    targetRevision: 0.14.5
+    repoURL: "https://metallb.github.io/metallb"
+    targetRevision: 0.14.9
     chart: metallb
     helm:
- #     parameters:
- #       - name: installCRDs
- #         value: 'true'
+  #     parameters:
+  #       - name: installCRDs
+  #         value: 'true'
   project: default
   syncPolicy:
     managedNamespaceMetadata:
