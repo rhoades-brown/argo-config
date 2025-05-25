@@ -23,6 +23,7 @@ spec:
           enabled: true
           annotations:
             nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+            nginx.ingress.kubernetes.io/proxy-body-size: 10240m
           hosts:
             - host:  speedtest.services.rhoades-brown.local
               paths:
