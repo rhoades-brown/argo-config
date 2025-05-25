@@ -10,7 +10,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     repoURL:  https://otwld.github.io/ollama-helm/
-    targetRevision: 0.57.0
+    targetRevision: ollama-1.17.0
     chart: ollama
     helm:
       values: |
