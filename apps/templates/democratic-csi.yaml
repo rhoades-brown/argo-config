@@ -11,9 +11,9 @@ spec:
   destination:
     namespace: democratic-csi
     server: "https://kubernetes.default.svc"
-  source:
-    repoURL: "https://democratic-csi.github.io/charts/"
-    targetRevision: 0.14.7
+  sources:
+  - repoURL: "https://democratic-csi.github.io/charts/"
+    targetRevision: 0.15.0
     chart: democratic-csi
     helm:
       valuesObject:
@@ -50,8 +50,10 @@ spec:
         driver:
           config:
             driver: freenas-api-nfs
-         #   existingConfigSecret: democratic-csi-driver-config
-
+            existingConfigSecret: democratic-csi-driver-config
+  - repoURL: https://github.com/rhoades-brown/argo-config
+    targetRevision: main
+    path: manifests/democratic-csi
   project: default
   syncPolicy:
     managedNamespaceMetadata:
