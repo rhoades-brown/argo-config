@@ -4,18 +4,22 @@ metadata:
   name: cloudflare
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+  labels:
+    {{- include "apps.labels" . | nindent 4 }}
 spec:
   destination:
     name: ''
     namespace: cloudflare-operator-system
     server: 'https://kubernetes.default.svc'
-  source:
-    repoURL: 'https://github.com/adyanth/cloudflare-operator.git'
+  sources:
+  - repoURL: 'https://github.com/adyanth/cloudflare-operator.git'
     path: config/default
     targetRevision: main
     kustomize:
       namespace: cloudflare-operator-system
-  sources: []
+  - path: manifests/cloudflare
+    repoURL: 'https://github.com/rhoades-brown/argo-config.git'
+    targetRevision: {{ .Values.targetRevision }}
   project: default
   syncPolicy:
     managedNamespaceMetadata:
