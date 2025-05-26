@@ -13,6 +13,18 @@ spec:
     repoURL: https://helm.openwebui.com/
     targetRevision: 6.16.0
     chart: open-webui
+    valuesObject:
+      oolama:
+          persistentVolume:
+            enabled: true
+      ingress:
+        enabled: true
+        class: "nginx"
+        annotations: 
+            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+            nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        host: "open-webui.services.rhoades-brown.local" # update to your real domain
+
   project: default
   syncPolicy:
     automated:
