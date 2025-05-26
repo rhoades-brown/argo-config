@@ -7,6 +7,11 @@ metadata:
   labels:
     {{- include "apps.labels" . | nindent 4 }}
 spec:
+  ignoreDifferences:
+    - group: networking.cfargotunnel.com
+      kind: TunnelBinding
+      jsonPointers:
+        - /spec/size
   destination:
     name: ''
     namespace: cloudflare-operator-system
