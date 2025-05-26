@@ -5,14 +5,15 @@ metadata:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   name: transmission
 spec:
+  ingressClassName: nginx
   rules:
-  - host: transmission.services.rhoades-brown.local
-    http:
-      paths:
-      - backend:
-          service:
-            name: transmission
-            port:
-              number: 9091
-        path: /
-        pathType: Prefix
+    - host: transmission.services.rhoades-brown.local
+      http:
+        paths:
+          - backend:
+              service:
+                name: transmission
+                port:
+                  number: 9091
+            path: /
+            pathType: Prefix
