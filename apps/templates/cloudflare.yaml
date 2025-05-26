@@ -9,7 +9,7 @@ metadata:
 spec:
   ignoreDifferences:
     - group: networking.cfargotunnel.com
-      kind: TunnelBinding
+      kind: ClusterTunnel
       jsonPointers:
         - /spec/size
   destination:
