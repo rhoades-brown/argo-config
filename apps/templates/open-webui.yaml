@@ -15,7 +15,7 @@ spec:
     chart: open-webui
     helm:
       valuesObject:
-        oolama:
+        ollama:
             persistentVolume:
               enabled: true
         ingress:
