@@ -13,7 +13,7 @@ spec:
     server: "https://kubernetes.default.svc"
   sources:
     - repoURL: "https://immich-app.github.io/immich-charts"
-      targetRevision: latest
+      targetRevision: 0.9.3
       chart: immich
       helm:
         valuesObject:
