@@ -16,15 +16,20 @@ spec:
   destination:
     namespace: metallb-system
     server: "https://kubernetes.default.svc"
-  source:
-    repoURL: "https://metallb.github.io/metallb"
+  sources:
+  - repoURL: "https://metallb.github.io/metallb"
     targetRevision: 0.14.9
     chart: metallb
     helm:
-  #     parameters:
-  #       - name: installCRDs
-  #         value: 'true'
-  project: default
+  - path: helm/metallb-config
+    repoURL: 'https://github.com/rhoades-brown/argo-config.git'
+    targetRevision: {{ .Values.targetRevision }}
+    helm:
+      parameters:
+        - name: poolName
+          value: default-pool
+        - name: ipAddressRange[0]
+          value: '192.168.1.69/29'  project: default
   syncPolicy:
     managedNamespaceMetadata:
       labels: # The labels to set on the application namespace
