@@ -13,12 +13,12 @@ spec:
     server: "https://kubernetes.default.svc"
   sources:
     - repoURL: "https://immich-app.github.io/immich-charts"
-      targetRevision: 0.7.2
+      targetRevision: latest
       chart: immich
       helm:
-        values: |
-          image:
-            tag: v1.114.0
+        valuesObject:
+          #image:
+          #  tag: v1.114.0
 
           immich:
             metrics:
@@ -36,6 +36,7 @@ spec:
             ingress:
               main:
                 enabled: true
+                className: nginx
                 annotations:
                   # proxy-body-size is set to 0 to remove the body limit on file uploads
                   nginx.ingress.kubernetes.io/proxy-body-size: "0"
@@ -49,7 +50,7 @@ spec:
             enabled: true
           redis:
             enabled: true
-    - path: other/immich
+    - path: manifests/immich
       repoURL: 'https://github.com/rhoades-brown/argo-config.git'
       targetRevision: {{ .Values.targetRevision }}
   project: default

@@ -1,16 +1,16 @@
 apiVersion: networking.cfargotunnel.com/v1alpha1
 kind: TunnelBinding
 metadata:
-  name: openspeedtest-tunnel-binding
+  name: immich-tunnel-binding
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 subjects:
   - name: immich-server
     kind: Service
     spec:
-      fqdn: openspeedtest.rhoades-brown.co.uk
+      fqdn: immich.rhoades-brown.co.uk
       protocol: http
-      target: http://openspeedtest.openspeedtest:3000
+      target: immich-server
 tunnelRef:
   kind: ClusterTunnel
   name: cluster-tunnel
