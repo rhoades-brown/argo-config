@@ -4,6 +4,8 @@ metadata:
   name: open-webui
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+  labels:
+    {{- include "apps.labels" . | nindent 4 }}
 spec:
   destination:
     namespace: open-webui

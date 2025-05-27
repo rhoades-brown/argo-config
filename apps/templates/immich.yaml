@@ -46,8 +46,7 @@ spec:
                     paths:
                       - path: "/"
                 tls: []
-          postgresql:
-            enabled: true
+
           redis:
             enabled: true
     - path: manifests/immich

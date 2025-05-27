@@ -4,7 +4,9 @@ metadata:
   name: external-snapshotter
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-spec:
+  labels:
+    {{- include "apps.labels" . | nindent 4 }}
+  spec:
   destination:
     namespace: kube-system
     server: https://kubernetes.default.svc

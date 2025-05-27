@@ -5,7 +5,9 @@ metadata:
   name: kube-prometheus-stack
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-spec:
+  labels:
+    {{- include "apps.labels" . | nindent 4 }}
+  spec:
   destination:
     name: ""
     namespace: kube-prometheus-stack
