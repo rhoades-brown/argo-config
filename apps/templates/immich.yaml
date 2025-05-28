@@ -19,7 +19,11 @@ spec:
         valuesObject:
           #image:
           #  tag: v1.114.0
-
+          postgresql:
+            global:
+              postgresql:
+                auth: 
+                  existingSecret: immich-app
           immich:
             metrics:
               enabled: true
