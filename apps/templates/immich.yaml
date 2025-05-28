@@ -17,6 +17,8 @@ spec:
       chart: immich
       helm:
         valuesObject:
+          env:
+             DB_HOSTNAME: immich-rw.immich.svc.cluster.local
           #image:
           #  tag: v1.114.0
           postgresql:
