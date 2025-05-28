@@ -8,6 +8,8 @@ spec:
   postgresql:
     shared_preload_libraries:
       - "vchord.so"
+  storage:
+    size: 8Gi
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
