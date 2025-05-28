@@ -4,7 +4,7 @@ kind: Cluster
 metadata:
   name: immich
 spec:
-  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:latest
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16-0.3.0
   postgresql:
     shared_preload_libraries:
       - "vchord.so"
