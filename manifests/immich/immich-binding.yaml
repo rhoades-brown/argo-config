@@ -9,8 +9,6 @@ subjects:
     kind: Service
     spec:
       fqdn: immich.rhoades-brown.co.uk
-      protocol: http
-      target: immich-server
 tunnelRef:
   kind: ClusterTunnel
   name: cluster-tunnel
