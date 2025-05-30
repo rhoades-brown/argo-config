@@ -1,7 +1,8 @@
+{{- $dot := . }} 
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "whoami.fullname" . }}
+  name: {{ include "whoami.fullname" . }}-stable
   labels:
     {{- include "whoami.labels" . | nindent 4 }}
 spec:
@@ -13,3 +14,37 @@ spec:
       name: http
   selector:
     {{- include "whoami.selectorLabels" . | nindent 4 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "whoami.fullname" . }}-canary
+  labels:
+    {{- include "whoami.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "whoami.selectorLabels" . | nindent 4 }}
+{{- range $colour := .Values.colourIngress }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "whoami.fullname" $dot }}-{{ $colour}}
+  labels:
+    {{- include "whoami.labels" $dot | nindent 4 }}
+spec:
+  type: {{ $.Values.service.type }}
+  ports:
+    - port: {{ $.Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    colour: {{ $colour}}
+{{- end }}

@@ -39,6 +39,8 @@ spec:
           env:
             - name: WHOAMI_PORT_NUMBER
               value: {{ .Values.service.port | quote }}
+            - name: WHOAMI_NAME
+              value: {{ .Values.name | quote }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}

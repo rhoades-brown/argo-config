@@ -1,0 +1,68 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: whoami-rollout
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    canary:
+      steps:
+      - setCanaryScale:
+          weight: 10
+      - pause: 
+          duration: 20
+      - setCanaryScale:
+          weight:  30
+      - pause: 
+          duration: 20
+      - setCanaryScale:
+          weight:  60
+      - pause: 
+          duration: 20
+      - setCanaryScale:
+          weight:  90
+      - pause: 
+          duration: 10
+      canaryService: {{ include "whoami.fullname" . }}-canary
+      # Reference to a Service which the controller will update to point to the stable ReplicaSet
+      stableService: {{ include "whoami.fullname" . }}-stable
+      #scaleDownDelayRevisionLimit: 30
+      dynamicStableScale: true
+#      abortScaleDownDelaySeconds: 600
+      trafficRouting:
+        nginx:
+          # Reference to an Ingress which has a rule pointing to the stable service (e.g. rollouts-demo-stable)
+          # This ingress will be cloned with a new name, in order to achieve NGINX traffic splitting.
+          stableIngress: {{ include "whoami.fullname" . }}-stable
+  revisionHistoryLimit: 2
+  
+  selector:
+    matchLabels:
+      {{- include "whoami.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "whoami.selectorLabels" . | nindent 8 }}
+        colour: {{ .Values.name | quote }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: WHOAMI_PORT_NUMBER
+              value: {{ .Values.service.port | quote }}
+            - name: WHOAMI_NAME
+              value: {{ .Values.name | quote }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

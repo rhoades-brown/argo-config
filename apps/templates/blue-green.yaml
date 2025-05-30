@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: blue-green
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    {{- include "apps.labels" . | nindent 4 }}
+spec:
+  destination:
+    namespace: transmission
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: examples/helm-blue-green
+    repoURL: https://github.com/argoproj/argo-rollouts.git
+    targetRevision: master
+    helm:
+      valuesObject: 
+        image:
+          repository: traefik/whoami
+          tag: v1.10.1
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -15,6 +15,21 @@ spec:
     path: helm/whoami
     repoURL: 'https://github.com/rhoades-brown/argo-config.git'
     targetRevision: {{ .Values.targetRevision }}
+    helm:
+      valuesObject:
+        ingress:
+          enabled: true
+          className: nginx
+          annotations: 
+            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+          hosts:
+            - host: whoami.services.rhoades-brown.local
+              paths:
+                - path: /
+                  pathType: ImplementationSpecific
+          tls:
+            - hosts:
+              - whoami.services.rhoades-brown.local
   project: default
   syncPolicy:
     automated:
