@@ -26,6 +26,11 @@ spec:
             tls:
               - hosts:
                   - argo-rollouts.services.rhoades-brown.local
+  ignoreDifferences:
+  - group: apiextensions.k8s.io
+    kind: CustomResourceDefinition
+    jsonPointers:
+      - /spec/preserveUnknownFields
   project: default
   syncPolicy:
     automated:
