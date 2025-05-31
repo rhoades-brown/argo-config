@@ -1,0 +1,48 @@
+{{ $couchDbFullName := printf "%s-couchdb" (include "obsidian-livesync.fullname" $) }}
+{{- with .Values.couchdb -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ $.Release.Name }}-obsidian-livesync-sync-config"
+  labels:
+    {{- include "obsidian-livesync.labels" $ | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install
+spec:
+  template:
+    metadata:
+      name: "{{ $.Release.Name }}-obsidian-livesync-sync-config"
+      labels:
+        {{- include "obsidian-livesync.labels" $ | nindent 8 }}
+    spec:
+      restartPolicy: OnFailure
+      {{- if .podSecurityContext }}
+      securityContext: {{ .podSecurityContext | toYaml | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: cluster-setup
+          image: {{ .autoSetup.image.repository }}:{{ .autoSetup.image.tag }}
+          imagePullPolicy: {{ .autoSetup.image.pullPolicy }}
+          command:
+            - 'sh'
+            - '-c'
+            - 'curl -s https://raw.githubusercontent.com/vrtmrz/obsidian-livesync/main/utils/couchdb/couchdb-init.sh  | sh -s --; sleep 900'
+          env:
+            - name: hostname
+              value: {{ printf "%s:%d" $couchDbFullName (.service.externalPort | default 5984 | int) | quote }}
+            - name: username
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .extraSecretName | default $couchDbFullName  }}
+                  key: {{ .adminUsernameKey | default "adminUsername" }}
+            - name: password
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .extraSecretName | default $couchDbFullName }}
+                  key: {{ .adminPasswordKey | default "adminPassword" }}
+          {{- if .containerSecurityContext }}
+          securityContext: {{ .containerSecurityContext | toYaml | nindent 12 }}
+          {{- end }}
+  backoffLimit: 2
+  ttlSecondsAfterFinished: 600
+{{- end -}}

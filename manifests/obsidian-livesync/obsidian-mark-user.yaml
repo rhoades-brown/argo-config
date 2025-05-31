@@ -1,0 +1,15 @@
+#cloudflare-secrets
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: obsidian-mark-user
+spec:
+  secretStoreRef:
+    name: pulumi-secret-store
+    kind: ClusterSecretStore
+  target:
+    name: obsidian-mark-user
+    creationPolicy: Owner
+  dataFrom:
+    - extract:
+        key: obsidian.mark-user
