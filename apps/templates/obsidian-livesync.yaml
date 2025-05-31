@@ -1,0 +1,38 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: obsidian-livesync
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    {{- include "apps.labels" . | nindent 4 }}
+spec:
+  destination:
+    namespace: obsidian-livesync
+    server: "https://kubernetes.default.svc"
+  sources:
+  - repoURL: https://charts.min.io
+    targetRevision: 5.4.0
+    chart: minio
+    helm:
+        valuesObject:
+          replicas: 3
+          resources:
+            requests:
+              memory: 1Gi
+          ingress:
+            enabled: true
+            className: nginx
+            hosts:
+              - couchdb.services.rhoades-brown.local
+            path: /
+            annotations:
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
