@@ -20,6 +20,11 @@ spec:
         csiDriver:
           # should be globally unique for a given cluster
           name: "org.democratic-csi.nfs"
+        controller:
+          driver:
+            enabled: true
+            image:
+              tag: next
 
         storageClasses:
           - name: freenas-nfs-csi
@@ -48,6 +53,8 @@ spec:
               controller-expand-secret:
 
         driver:
+          image:
+            tag: next
           config:
             driver: freenas-api-nfs
             existingConfigSecret: democratic-csi-driver-config
