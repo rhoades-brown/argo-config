@@ -1,0 +1,36 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: immich
+spec:
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16-0.3.0
+  postgresql:
+    shared_preload_libraries:
+      - "vchord.so"
+
+  # The "postgres" superuser is needed only for import and it can be deactivated after migration.
+  enableSuperuserAccess: true
+  # superuserSecret: immich-superuser
+
+  managed:
+    roles:
+      - name: immich
+        superuser: true
+        login: true
+        passwordSecret:
+          name: immich-postgres-user
+
+  bootstrap:
+    initdb:
+      database: immich
+      owner: immich
+      # secret:
+      #   name: immich-postgres-user
+      postInitSQL:
+        - CREATE EXTENSION IF NOT EXISTS "vectors";
+        - CREATE EXTENSION IF NOT EXISTS "cube" CASCADE;
+        - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
+
+  storage:
+    size: 12Gi
