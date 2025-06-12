@@ -32,7 +32,7 @@ spec:
         - CREATE EXTENSION IF NOT EXISTS "cube" CASCADE;
         - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
   storage:
-    size: 8Gi
+    size: 12Gi
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: Database
