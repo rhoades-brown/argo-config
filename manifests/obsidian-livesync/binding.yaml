@@ -9,7 +9,7 @@ subjects:
     kind: Service
     spec:
       fqdn: obsidian.rhoades-brown.co.uk
-      protocol: http
+      protocol: https
 tunnelRef:
   kind: ClusterTunnel
   name: cluster-tunnel
