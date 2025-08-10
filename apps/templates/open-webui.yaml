@@ -30,7 +30,7 @@ spec:
             clientId: "8b383a10-7a1a-4bd5-a86b-3b1d748a8e21"
             # -- Microsoft OAuth client secret (ignored if clientExistingSecret is set)
             # @section -- Microsoft OAuth configuration
-            clientSecret: ""
+            # clientSecret: ""
             # -- Microsoft OAuth client secret from existing secret
             # @section -- Microsoft OAuth configuration
             clientExistingSecret: "sso-microsoft-secret"
@@ -40,21 +40,22 @@ spec:
             # -- Microsoft tenant ID - use 9188040d-6c67-4c5b-b112-36a304b66dad for personal accounts
             # @section -- Microsoft OAuth configuration
             tenantId: "fdc5b793-3a2d-4491-8106-3d6c3f812c0e"
-        
-apiVersion: external-secrets.io/v1
-kind: ExternalSecret
-metadata:
-  name: sso-microsoft-secret
-spec:
-  secretStoreRef:
-    name: pulumi-secret-store
-    kind: ClusterSecretStore
-  target:
-    name: sso-microsoft-secret
-    creationPolicy: Owner
-  dataFrom:
-    - extract:
-        key: open-webui.sso
+
+        extraResources:
+        - apiVersion: external-secrets.io/v1
+          kind: ExternalSecret
+          metadata:
+            name: sso-microsoft-secret
+          spec:
+            secretStoreRef:
+              name: pulumi-secret-store
+              kind: ClusterSecretStore
+            target:
+              name: sso-microsoft-secret
+              creationPolicy: Owner
+            dataFrom:
+              - extract:
+                  key: open-webui.sso
 
 
 
