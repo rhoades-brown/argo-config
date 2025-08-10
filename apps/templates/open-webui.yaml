@@ -1,0 +1,77 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: open-webui
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    {{- include "apps.labels" . | nindent 4 }}
+spec:
+  destination:
+    namespace: open-webui
+    server: https://kubernetes.default.svc
+  source:
+    path: ''
+    repoURL: https://helm.openwebui.com/
+    targetRevision: 7.2.0
+    chart: open-webui
+    helm:
+      valuesObject:
+        ollama:
+          enabled: false
+        
+        sso:
+          microsoft:
+            # -- Enable Microsoft OAuth
+            # @section -- Microsoft OAuth configuration
+            enabled: true
+            # -- Microsoft OAuth client ID
+            # @section -- Microsoft OAuth configuration
+            clientId: "8b383a10-7a1a-4bd5-a86b-3b1d748a8e21"
+            # -- Microsoft OAuth client secret (ignored if clientExistingSecret is set)
+            # @section -- Microsoft OAuth configuration
+            clientSecret: ""
+            # -- Microsoft OAuth client secret from existing secret
+            # @section -- Microsoft OAuth configuration
+            clientExistingSecret: "sso-microsoft-secret"
+            # -- Microsoft OAuth client secret key from existing secret
+            # @section -- Microsoft OAuth configuration
+            clientExistingSecretKey: "key"
+            # -- Microsoft tenant ID - use 9188040d-6c67-4c5b-b112-36a304b66dad for personal accounts
+            # @section -- Microsoft OAuth configuration
+            tenantId: "fdc5b793-3a2d-4491-8106-3d6c3f812c0e"
+        
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: sso-microsoft-secret
+spec:
+  secretStoreRef:
+    name: pulumi-secret-store
+    kind: ClusterSecretStore
+  target:
+    name: sso-microsoft-secret
+    creationPolicy: Owner
+  dataFrom:
+    - extract:
+        key: open-webui.sso
+
+
+
+        ollamaUrls:
+          - "http://ollama.rhoades-brown.local:11434"
+        ingress:
+          enabled: true
+          class: "nginx"
+          annotations: 
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+              nginx.ingress.kubernetes.io/ssl-redirect: "true"
+          host: "open-webui.services.rhoades-brown.local" # update to your real domain
+
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
