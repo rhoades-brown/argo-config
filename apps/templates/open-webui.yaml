@@ -18,8 +18,16 @@ spec:
     helm:
       valuesObject:
         ollama:
-          enabled: false
-        
+          enabled: true
+          ollama: 
+            gpu:
+             enabled: true
+             type: nvidia
+
+          runtimeClassName: nvidia
+          persistentVolume:
+            enabled: true
+
         sso:
           microsoft:
             # -- Enable Microsoft OAuth
