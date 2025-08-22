@@ -25,11 +25,11 @@ spec:
     repoURL: 'https://github.com/rhoades-brown/argo-config.git'
     targetRevision: {{ .Values.targetRevision }}
     helm:
-      parameters:
-        - name: poolName
-          value: default-pool
-        - name: ipAddressRange[0]
-          value: '192.168.1.69/29'
+      valuesObject:
+        poolName:  default-pool
+        ipAddressRange: 
+          - '192.168.1.69/29'
+
   project: default
   syncPolicy:
     managedNamespaceMetadata:
