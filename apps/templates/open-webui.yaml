@@ -27,9 +27,12 @@ spec:
           runtimeClassName: nvidia
           persistentVolume:
             enabled: true
-
+          service:
+            type: LoadBalancer
+            annotations:
+              metallb.io/loadBalancerIPs: 192.168.1.79
           ingress:
-            enabled: true
+            enabled: false
             className: "nginx"
             hosts:
               - host: "ollama.services.rhoades-brown.local"
