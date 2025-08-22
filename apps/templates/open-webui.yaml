@@ -30,7 +30,7 @@ spec:
           service:
             type: LoadBalancer
             annotations:
-              metallb.io/loadBalancerIPs: 192.168.1.69
+              metallb.io/loadBalancerIPs: 192.168.1.68
           ingress:
             enabled: false
             className: "nginx"

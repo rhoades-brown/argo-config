@@ -28,7 +28,7 @@ spec:
       valuesObject:
         poolName:  default-pool
         ipAddressRange: 
-          - '192.168.1.69/29'
+          - '192.168.1.64/29'
 
   project: default
   syncPolicy:
