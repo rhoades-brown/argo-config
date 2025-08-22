@@ -65,10 +65,6 @@ spec:
               - extract:
                   key: open-webui.sso
 
-
-
-        ollamaUrls:
-          - "http://ollama.rhoades-brown.local:11434"
         ingress:
           enabled: true
           class: "nginx"
