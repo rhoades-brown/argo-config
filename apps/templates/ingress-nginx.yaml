@@ -20,7 +20,7 @@ spec:
         controller:
           service:
             annotations:
-              metallb.universe.tf/loadBalancerIPs: 192.168.1.70
+              metallb.io/loadBalancerIPs: 192.168.1.70
           extraArgs:
             default-ssl-certificate: "ingress-nginx/ingress"
       parameters:

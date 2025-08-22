@@ -18,7 +18,7 @@ spec:
     server: "https://kubernetes.default.svc"
   sources:
   - repoURL: "https://metallb.github.io/metallb"
-    targetRevision: 0.14.9
+    targetRevision: 0.15.2
     chart: metallb
     helm:
   - path: helm/metallb-config
