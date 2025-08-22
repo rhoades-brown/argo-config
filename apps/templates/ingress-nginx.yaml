@@ -13,7 +13,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   sources:
   - repoURL: https://kubernetes.github.io/ingress-nginx
-    targetRevision: 4.11.2
+    targetRevision: 4.13.1
     chart: ingress-nginx
     helm:
       values: |
