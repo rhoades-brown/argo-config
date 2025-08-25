@@ -19,7 +19,9 @@ spec:
       valuesObject:
         ollama:
           enabled: true
-          ollama: 
+          image:
+            tag: latest
+          ollama:
             gpu:
              enabled: true
              type: nvidia
