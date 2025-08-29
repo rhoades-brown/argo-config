@@ -18,9 +18,9 @@ spec:
             specRef: stable
           - name: canary
             specRef: canary
-        analysis:
-          - name: colour
-            templateName: colour
+          analyses:
+            - name: colour
+              templateName: colour
 
       - setWeight: 10
       - pause: { duration: 30 }
