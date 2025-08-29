@@ -12,7 +12,7 @@ spec:
         startingStep: 2
       steps:
       - experiment:
-          duration: 2m 
+          duration: 30s 
           templates:
           - name: baseline
             specRef: stable
