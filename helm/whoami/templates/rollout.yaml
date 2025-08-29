@@ -18,7 +18,7 @@ spec:
             specRef: stable
           - name: canary
             specRef: canary
-        analyses:
+        analysis:
           - name: colour
             templateName: colour
 
