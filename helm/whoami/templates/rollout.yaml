@@ -19,7 +19,7 @@ spec:
           - name: canary
             specRef: canary
         analyses:
-          - name : colour
+          - name: colour
             templateName: colour
 
       - setWeight: 10
