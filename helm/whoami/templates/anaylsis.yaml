@@ -7,10 +7,11 @@ spec:
   - name: whoami-canary
     interval: 1s
     failureLimit: 3
-    successCondition: result == '{{ .Values.name }}'
   metrics:
-    provider:
-      web:
-        url: "https://whoami.services.rhoades-brown.local/api"
-        timeoutSeconds: 20 # defaults to 10 seconds
-        jsonPath: "{$.name}"
+    - name: colour 
+      successCondition: result == '{{ .Values.name }}'
+      provider:
+        web:
+          url: "https://whoami.services.rhoades-brown.local/api"
+          timeoutSeconds: 20 # defaults to 10 seconds
+          jsonPath: "{$.name}"
