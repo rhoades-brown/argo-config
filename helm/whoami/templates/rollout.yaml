@@ -19,8 +19,8 @@ spec:
           - name: canary
             specRef: canary
           analyses:
-            - name: colour
-              templateName: colour
+            - name: method
+              templateName: method
 
       - setWeight: 10
       - pause: { duration: 30 }
