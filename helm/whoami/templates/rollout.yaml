@@ -8,7 +8,7 @@ spec:
     canary:
       analysis:
         templates:
-          - templateName: colour
+          - templateName: method
         startingStep: 2
       steps:
       - experiment:
