@@ -8,6 +8,6 @@ spec:
       successCondition: result == '{{ .Values.name }}'
       provider:
         web:
-          url: "http://whoami.services.rhoades-brown.local/api"
-          timeoutSeconds: 20 # defaults to 10 seconds
+          url: "https://whoami.services.rhoades-brown.local/api"
+          insecure: true
           jsonPath: "{$.name}"
