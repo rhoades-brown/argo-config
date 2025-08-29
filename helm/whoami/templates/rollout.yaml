@@ -23,13 +23,13 @@ spec:
 #            - name: method
 #              templateName: method
       - setWeight: 10
-      - pause: { duration: 30 }
+      - pause: { duration: 20 }
       - setWeight:  30
-      - pause: { duration: 30 }
+      - pause: { duration: 20 }
       - setWeight:  60
-      - pause: { duration: 30 }
+      - pause: { duration: 20 }
       - setWeight:  90
-      - pause: { duration: 30 }
+      - pause: { duration: 20 }
       canaryService: {{ include "whoami.fullname" . }}-canary
       # Reference to a Service which the controller will update to point to the stable ReplicaSet
       stableService: {{ include "whoami.fullname" . }}-stable
