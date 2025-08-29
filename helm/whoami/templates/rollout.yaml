@@ -6,22 +6,22 @@ spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
     canary:
-      analysis:
-        templates:
-          - templateName: method
-        startingStep: 2
+#      analysis:
+#        templates:
+#          - templateName: method
+#          - templateName: colour
+#        startingStep: 2
       steps:
-      - experiment:
-          duration: 30s 
-          templates:
-          - name: baseline
-            specRef: stable
-          - name: canary
-            specRef: canary
-          analyses:
-            - name: method
-              templateName: method
-
+#      - experiment:
+#          duration: 30s 
+#          templates:
+#          - name: baseline
+#            specRef: stable
+#          - name: canary
+#            specRef: canary
+#          analyses:
+#            - name: method
+#              templateName: method
       - setWeight: 10
       - pause: { duration: 30 }
       - setWeight:  30
