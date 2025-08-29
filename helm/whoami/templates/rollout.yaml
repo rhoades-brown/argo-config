@@ -6,6 +6,10 @@ spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
     canary:
+      analysis:
+        templates:
+          - name: colour
+        startingStep: 2
       steps:
       - setWeight: 10
       - pause: { duration: 30 }
