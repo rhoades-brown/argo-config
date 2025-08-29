@@ -7,20 +7,16 @@ spec:
   strategy:
     canary:
       steps:
-      - setCanaryScale:
-          weight: 10
+      setWeight: 10
       - pause: 
           duration: 20
-      - setCanaryScale:
-          weight:  30
+      setWeight:  30
       - pause: 
           duration: 20
-      - setCanaryScale:
-          weight:  60
+      setWeight:  60
       - pause: 
           duration: 20
-      - setCanaryScale:
-          weight:  90
+      setWeight:  90
       - pause: 
           duration: 10
       canaryService: {{ include "whoami.fullname" . }}-canary
