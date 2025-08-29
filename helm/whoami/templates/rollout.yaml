@@ -17,7 +17,16 @@ spec:
           - name: baseline
             specRef: stable
           - name: canary
-            specRef: canary 
+            specRef: canary
+        analyses:
+          - name : colour
+            templateName: colour
+            args:
+            - name: baseline-hash
+              value: "{{templates.baseline.podTemplateHash}}"
+            - name: canary-hash
+              value: "{{templates.canary.podTemplateHash}}"
+
       - setWeight: 10
       - pause: { duration: 30 }
       - setWeight:  30
