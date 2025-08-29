@@ -9,7 +9,7 @@ spec:
 #      analysis:
 #        templates:
 #          - templateName: method
-#          - templateName: colour
+#        # - templateName: colour
 #        startingStep: 2
       steps:
 #      - experiment:
