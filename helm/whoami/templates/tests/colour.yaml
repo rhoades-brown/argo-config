@@ -5,9 +5,9 @@ metadata:
 spec:
   metrics:
     - name: colour 
-      successCondition: result == 'GET'
+      successCondition: result == '{{ .Values.name }}'
       provider:
         web:
           url: "https://whoami.services.rhoades-brown.local/api"
           insecure: true
-          jsonPath: "{$.method}"
+          jsonPath: "{$.name}"

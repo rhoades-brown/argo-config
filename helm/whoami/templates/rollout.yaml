@@ -11,6 +11,13 @@ spec:
           - templateName: colour
         startingStep: 2
       steps:
+      - experiment:
+          duration: 2m 
+          templates:
+          - name: baseline
+            specRef: stable
+          - name: canary
+            specRef: canary 
       - setWeight: 10
       - pause: { duration: 30 }
       - setWeight:  30

@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: method
+spec:
+  metrics:
+    - name: method 
+      successCondition: result == 'GET'
+      provider:
+        web:
+          url: "https://whoami.services.rhoades-brown.local/api"
+          insecure: true
+          jsonPath: "{$.method}"
