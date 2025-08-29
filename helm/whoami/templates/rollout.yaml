@@ -21,11 +21,6 @@ spec:
         analyses:
           - name : colour
             templateName: colour
-            args:
-            - name: baseline-hash
-              value: "{{templates.baseline.podTemplateHash}}"
-            - name: canary-hash
-              value: "{{templates.canary.podTemplateHash}}"
 
       - setWeight: 10
       - pause: { duration: 30 }
