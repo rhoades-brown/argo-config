@@ -34,7 +34,7 @@ spec:
       # Reference to a Service which the controller will update to point to the stable ReplicaSet
       stableService: {{ include "whoami.fullname" . }}-stable
       #scaleDownDelayRevisionLimit: 30
-    #  dynamicStableScale: true
+      dynamicStableScale: true
 #      abortScaleDownDelaySeconds: 600
       trafficRouting:
         nginx:
