@@ -23,7 +23,6 @@ spec:
           weight:  90
       - pause: 
           duration: 10
-      stableIngress: {{ include "whoami.fullname" . }}-stable
       canaryService: {{ include "whoami.fullname" . }}-canary
       # Reference to a Service which the controller will update to point to the stable ReplicaSet
       stableService: {{ include "whoami.fullname" . }}-stable
