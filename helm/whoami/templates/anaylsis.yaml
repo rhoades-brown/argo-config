@@ -3,10 +3,6 @@ kind: AnalysisTemplate
 metadata:
   name: colour
 spec:
-  args:
-  - name: whoami-canary
-    interval: 1s
-    failureLimit: 3
   metrics:
     - name: colour 
       successCondition: result == '{{ .Values.name }}'
