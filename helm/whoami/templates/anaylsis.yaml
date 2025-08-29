@@ -1,10 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AnalysisTemplate
 metadata:
-  name: success-rate
+  name: colour
 spec:
   args:
   - name: whoami-canary
+    interval: 1s
+    failureLimit: 3
+    successCondition: result == '{{ .Values.name }}'
   metrics:
     provider:
       web:
