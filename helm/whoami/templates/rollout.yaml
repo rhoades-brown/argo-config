@@ -8,7 +8,7 @@ spec:
     canary:
       analysis:
         templates:
-          - name: colour
+          - templateName: colour
         startingStep: 2
       steps:
       - setWeight: 10
