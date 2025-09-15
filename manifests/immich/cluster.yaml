@@ -9,10 +9,21 @@ spec:
   postgresql:
     shared_preload_libraries:
       - "vchord.so"
-
+      - "vectors.so"
+  managed:
+    roles:
+      - name: immich
+        superuser: true
+        login: true
   bootstrap:
     initdb:
-      postInitTemplateSQL:
+      database: immich
+      owner: immich
+      secret:
+        name: immich-postgres-user
+      postInitSQL:
+        - CREATE EXTENSION IF NOT EXISTS "vectors";
+        - CREATE EXTENSION IF NOT EXISTS "cube" CASCADE;
         - CREATE EXTENSION IF NOT EXISTS "vchord" CASCADE;
         - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
   storage:
