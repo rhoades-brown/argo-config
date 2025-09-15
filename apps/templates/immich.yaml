@@ -18,7 +18,7 @@ spec:
       helm:
         valuesObject:
           image:
-            tag: v1.137.3
+            tag: v1.142.0
 
           immich:
             metrics:
@@ -38,22 +38,22 @@ spec:
             - name: DB_HOSTNAME
               valueFrom:
                 secretKeyRef:
-                  name: immich-superuser
+                  name: immich-cluster-superuser
                   key: host
             - name: DB_DATABASE_NAME
               valueFrom:
                 secretKeyRef:
-                  name: immich-app
+                  name: immich-cluster-app
                   key: dbname
             - name: DB_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: immich-superuser
+                  name: immich-cluster-superuser
                   key: username
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: immich-superuser
+                  name: immich-cluster-superuser
                   key: password
             ingress:
               main:
