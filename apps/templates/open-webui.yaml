@@ -25,6 +25,10 @@ spec:
             gpu:
              enabled: true
              type: nvidia
+          tolerations:
+          - key: "type"
+            operator: "Exists"
+            effect: "NoSchedule"
 
           runtimeClassName: nvidia
           persistentVolume:
