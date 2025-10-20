@@ -13,7 +13,7 @@ spec:
   source:
     path: ''
     repoURL: https://helm.openwebui.com/
-    targetRevision: 8.10.0
+    targetRevision: 8.12.2
     chart: open-webui
     helm:
       valuesObject:
@@ -26,7 +26,7 @@ spec:
              enabled: true
              type: nvidia
           tolerations:
-          - key: "type"
+          - key: "nvidia.com/gpu"
             operator: "Exists"
             effect: "NoSchedule"
 
