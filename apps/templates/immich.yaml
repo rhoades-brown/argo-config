@@ -18,14 +18,14 @@ spec:
       helm:
         valuesObject:
           image:
-            tag: v2.1.0
+            tag: v2.2.1
 
           controllers:
             main:
               containers:
                 main:
                   image:
-                    tag: v2.1.0
+                    tag: v2.2.1
                   env:
                     DB_HOSTNAME:
                       valueFrom:

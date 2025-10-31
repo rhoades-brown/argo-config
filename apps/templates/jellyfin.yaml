@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jellyfin
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    {{- include "apps.labels" . | nindent 4 }}
+spec:
+  destination:
+    name: ''
+    namespace: jellyfin
+    server: 'https://kubernetes.default.svc'
+  sources:
+    - repoURL: https://jellyfin.github.io/jellyfin-helm
+      targetRevision: 2.4.0
+      chart: jellyfin
+      helm:
+        valuesObject:
+          persistence:
+          volumes:
+            - name: music
+              persistentVolumeClaim:
+                claimName: nfs-music
+            - name: videos
+              persistentVolumeClaim:
+                claimName: nfs-videos
+          volumeMounts:
+            - name: music
+              mountPath: "/media/music"
+            - name: videos
+              mountPath: "/media/videos"
+          ingress:
+            enabled: true
+            className: ""
+            annotations: {}
+              # kubernetes.io/ingress.class: nginx
+              # kubernetes.io/tls-acme: "true"
+            hosts:
+              - host: jellyfin.services.rhoades-brown.local
+                paths:
+                  - path: /
+                    pathType: ImplementationSpecific
+    - path: manifests/jellyfin
+      repoURL: 'https://github.com/rhoades-brown/argo-config.git'
+      targetRevision: {{ .Values.targetRevision }}
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
+
