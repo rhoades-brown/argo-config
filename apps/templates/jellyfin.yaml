@@ -25,11 +25,17 @@ spec:
             - name: videos
               persistentVolumeClaim:
                 claimName: nfs-videos
+            - name: other
+              nfs:
+                server: truenas.rhoades-brown.local
+                path: /mnt/RustyPool/Other
           volumeMounts:
             - name: music
               mountPath: "/media/music"
             - name: videos
               mountPath: "/media/videos"
+            - name: other
+              mountPath: "/media/other"
           ingress:
             enabled: true
             className: ""
