@@ -29,6 +29,7 @@ spec:
               nfs:
                 server: truenas.rhoades-brown.local
                 path: /mnt/RustyPool/Other
+                
           volumeMounts:
             - name: music
               mountPath: "/media/music"
