@@ -52,6 +52,12 @@ spec:
               node-publish-secret:
               controller-expand-secret:
 
+        node:
+          tolerations:
+          - key: "nvidia.com/gpu"
+            operator: "Exists"
+            effect: "NoSchedule"
+
         driver:
           image:
             tag: next

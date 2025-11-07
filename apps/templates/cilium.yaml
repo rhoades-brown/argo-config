@@ -12,14 +12,13 @@ spec:
     namespace:  kube-system
     server: 'https://kubernetes.default.svc'
   sources:
-  - path: ''
-    repoURL: https://helm.cilium.io/
+  - repoURL: https://helm.cilium.io/
     targetRevision: 1.18.3
     chart: cilium
     helm:
       valuesObject:
         ipam:
-            mode: kubernetes
+          mode: kubernetes
         kubeProxyReplacement: true
         securityContext:
           capabilities:
