@@ -44,6 +44,10 @@ spec:
           hostRoot: /sys/fs/cgroup
         k8sServiceHost: localhost
         k8sServicePort: 7445
+        bgpControlPlane:
+          enabled: true
+        hubble:
+          enabled: true
         gatewayAPI:
           enabled: true
           enableAlpn: true
