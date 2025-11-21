@@ -13,7 +13,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   sources:
     - repoURL: https://jellyfin.github.io/jellyfin-helm
-      targetRevision: 2.4.0
+      targetRevision: 2.5.0
       chart: jellyfin
       helm:
         valuesObject:
