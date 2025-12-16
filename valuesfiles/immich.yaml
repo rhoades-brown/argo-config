@@ -29,6 +29,7 @@ controllers:
               secretKeyRef:
                 name: immich-cluster-superuser
                 key: password
+
 immich:
   metrics:
     enabled: true
@@ -42,6 +43,14 @@ immich:
 
 server:
   enabled: true
+  service:
+    main:
+      enabled: true
+      controller: main
+      primary: true
+      type: LoadBalancer
+      loadBalancerClass: tailscale
+
   ingress:
     main:
       enabled: true
