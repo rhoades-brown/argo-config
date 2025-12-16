@@ -16,79 +16,12 @@ spec:
       targetRevision: 0.10.3
       chart: immich
       helm:
-        valuesObject:
-          image:
-            tag: v2.3.1
+        valueFiles:
+          - $values/valuesfiles/immich.yaml
 
-          controllers:
-            main:
-              containers:
-                main:
-                  image:
-                    tag: v2.3.1
-                  env:
-                    DB_HOSTNAME:
-                      valueFrom:
-                        secretKeyRef:
-                          name: immich-cluster-superuser
-                          key: host
-                    DB_DATABASE_NAME:
-                      valueFrom:
-                        secretKeyRef:
-                          name: immich-cluster-app
-                          key: dbname
-                    DB_USERNAME:
-                      valueFrom:
-                        secretKeyRef:
-                          name: immich-cluster-superuser
-                          key: username
-                    DB_PASSWORD:
-                      valueFrom:
-                        secretKeyRef:
-                          name: immich-cluster-app
-                          key: dbname
-                    DB_USERNAME:
-                      valueFrom:
-                        secretKeyRef:
-                          name: immich-cluster-superuser
-                          key: username
-                    DB_PASSWORD:
-                      valueFrom:
-                        secretKeyRef:
-                          name: immich-cluster-superuser
-                          key: password
-          immich:
-            metrics:
-              enabled: true
-            persistence:
-              # Main data store for all photos shared between different components.
-              library:
-                # Automatically creating the library volume is not supported by this chart
-                # You have to specify an existing PVC to use
-                existingClaim: nfs-photos
-            configuration:
-
-            
-          server:
-            enabled: true
-            ingress:
-              main:
-                enabled: true
-                className: nginx
-                annotations:
-                  # proxy-body-size is set to 0 to remove the body limit on file uploads
-                  nginx.ingress.kubernetes.io/proxy-body-size: "0"
-                  nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-                hosts:
-                  - host: immich.services.rhoades-brown.local
-                    paths:
-                      - path: "/"
-                        service:
-                          identifier: main
-                tls: []
-
-          valkey:
-            enabled: true
+    - repoURL: 'https://github.com/rhoades-brown/argo-config.git'
+      targetRevision: {{ .Values.targetRevision }}
+      ref: values
 
     - path: manifests/immich
       repoURL: 'https://github.com/rhoades-brown/argo-config.git'
