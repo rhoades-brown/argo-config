@@ -12,9 +12,9 @@ spec:
     namespace:  kube-system
     server: 'https://kubernetes.default.svc'
   sources:
-  - repoURL: https://helm.cilium.io/
-    targetRevision: 1.18.3
-    chart: cilium
+  - repoURL: https://github.com/rhoades-brown/argo-config
+    targetRevision: main
+    path: helm/cilium
     helm:
       valuesObject:
         ipam:
@@ -45,15 +45,22 @@ spec:
         k8sServiceHost: localhost
         k8sServicePort: 7445
         bgpControlPlane:
-          enabled: true
+          enabled: false
         hubble:
           enabled: true
         gatewayAPI:
           enabled: true
           enableAlpn: true
           enableAppProtocol: true
-
-
+        l2announcement:
+          enabled: true
+          
+        ingressController:
+          enabled: true
+          default: true
+  - repoURL: https://github.com/rhoades-brown/argo-config
+    targetRevision: main
+    path: manifests/cilium
   project: default
   syncPolicy:
     managedNamespaceMetadata:
@@ -66,5 +73,3 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-
-
