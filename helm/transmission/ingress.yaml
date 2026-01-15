@@ -5,7 +5,7 @@ metadata:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   name: transmission
 spec:
-  ingressClassName: nginx
+  ingressclassName: cilium
   rules:
     - host: transmission.services.rhoades-brown.local
       http:
