@@ -35,8 +35,6 @@ gatewayAPI:
   enableAppProtocol: true
 l2announcements:
   enabled: true
-externalIPs:
-  enabled: true
 
 ingressController:
   enabled: false

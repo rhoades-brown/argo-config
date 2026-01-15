@@ -20,7 +20,7 @@ spec:
           enabled: true
           ingress:
             enabled: true
-            ingressclassName: cilium
+            ingressclassName: nginx
             annotations:
               nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
             hosts:
