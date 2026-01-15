@@ -12,55 +12,18 @@ spec:
     namespace:  kube-system
     server: 'https://kubernetes.default.svc'
   sources:
-  - repoURL: https://github.com/rhoades-brown/argo-config
-    targetRevision: main
-    path: helm/cilium
-    helm:
-      valuesObject:
-        ipam:
-          mode: kubernetes
-        kubeProxyReplacement: true
-        securityContext:
-          capabilities:
-            ciliumAgent: 
-             - CHOWN
-             - KILL
-             - NET_ADMIN
-             - NET_RAW
-             - IPC_LOCK
-             - SYS_ADMIN
-             - SYS_RESOURCE
-             - DAC_OVERRIDE
-             - FOWNER
-             - SETGID
-             - SETUID
-            cleanCiliumState: 
-             - NET_ADMIN
-             - SYS_ADMIN
-             - SYS_RESOURCE
-        cgroup:
-          autoMount:
-            enabled: false
-          hostRoot: /sys/fs/cgroup
-        k8sServiceHost: localhost
-        k8sServicePort: 7445
-        bgpControlPlane:
-          enabled: false
-        hubble:
-          enabled: true
-        gatewayAPI:
-          enabled: true
-          enableAlpn: true
-          enableAppProtocol: true
-        l2announcement:
-          enabled: true
-          
-        ingressController:
-          enabled: true
-          default: true
-  - repoURL: https://github.com/rhoades-brown/argo-config
-    targetRevision: main
-    path: manifests/cilium
+    - repoURL: https://github.com/rhoades-brown/argo-config
+      targetRevision: main
+      path: helm/cilium
+      helm:
+        valueFiles:
+          - $values/valuesfiles/cilium.yaml
+    - repoURL: https://github.com/rhoades-brown/argo-config
+      targetRevision: main
+      path: manifests/cilium
+    - repoURL: 'https://github.com/rhoades-brown/argo-config.git'
+      targetRevision: {{ .Values.targetRevision }}
+      ref: values
   project: default
   syncPolicy:
     managedNamespaceMetadata:
