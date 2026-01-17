@@ -13,7 +13,7 @@ spec:
   source:
     path: ''
     repoURL: https://helm.openwebui.com/
-    targetRevision: 8.12.2
+    targetRevision: 10.2.1
     chart: open-webui
     helm:
       valuesObject:
