@@ -17,6 +17,8 @@ spec:
       chart: jellyfin
       helm:
         valuesObject:
+          image:
+            tag: latest
           persistence:
           volumes:
             - name: music
