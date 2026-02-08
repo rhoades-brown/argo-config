@@ -19,6 +19,8 @@ spec:
         valuesObject:
           image:
             tag: latest
+          deploymentStrategy:
+            type: Recreate
           persistence:
           volumes:
             - name: music
