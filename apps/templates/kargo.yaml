@@ -11,7 +11,7 @@ spec:
   sources:
     - repoURL: ghcr.io/akuity/kargo-charts
       chart: kargo
-      targetRevision: v1.9.5
+      targetRevision: v1.8.0
       helm:
         valueFiles:
           - $values/kargo/values.yaml
