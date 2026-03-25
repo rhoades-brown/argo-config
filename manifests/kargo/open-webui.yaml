@@ -2,13 +2,13 @@
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Project
 metadata:
-  name: open-webui
+  name: kargo-open-webui
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Warehouse
 metadata:
   name: open-webui
-  namespace: open-webui
+  namespace: kargo-open-webui
 spec:
   subscriptions:
     - image:
