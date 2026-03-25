@@ -23,8 +23,8 @@ spec:
       targetRevision: {{ .Values.targetRevision }}
       ref: values
 
-    - path: manifests/jellyfin
-      repoURL: 'https://github.com/rhoades-brown/argo-config.git'
+    - repoURL: 'https://github.com/rhoades-brown/argo-config.git'
+      path: manifests/jellyfin
       targetRevision: {{ .Values.targetRevision }}
   project: default
   syncPolicy:
