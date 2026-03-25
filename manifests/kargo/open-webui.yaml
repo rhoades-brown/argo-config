@@ -27,3 +27,55 @@ spec:
         repoURL: https://helm.openwebui.com/
         name: open-webui
         semverConstraint: ">=12.0.0"
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: prod
+  namespace: kargo-open-webui
+spec:
+  requestedFreight:
+    - origin:
+        kind: Warehouse
+        name: open-webui
+      sources:
+        direct: true
+  promotionTemplate:
+    spec:
+      vars:
+        - name: gitRepo
+          value: https://github.com/rhoades-brown/argo-config.git
+      steps:
+        - uses: git-clone
+          config:
+            repoURL: ${{ vars.gitRepo }}
+            checkout:
+              - branch: main
+                path: ./src
+        - uses: yaml-update
+          as: update-ollama
+          config:
+            path: ./src/valuesfiles/open-webui.yaml
+            updates:
+              - key: ollama.image.tag
+                value: ${{ imageFrom("docker.io/ollama/ollama").Tag }}
+        - uses: git-commit
+          as: commit
+          config:
+            path: ./src
+            message: ${{ outputs['update-ollama'].commitMessage }}
+        - uses: git-push
+          config:
+            path: ./src
+        - uses: argocd-update
+          config:
+            apps:
+              - name: open-webui
+                namespace: argocd
+                sources:
+                  - repoURL: https://helm.openwebui.com/
+                    chart: open-webui
+                    desiredRevision: ${{ chartFrom("https://helm.openwebui.com/", "open-webui").Version }}
+                    updateTargetRevision: true
+                  - repoURL: ${{ vars.gitRepo }}
+                    desiredRevision: ${{ outputs.commit.commit }}
