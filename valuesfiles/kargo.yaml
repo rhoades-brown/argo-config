@@ -1,5 +1,6 @@
 ---
 api:
+  host: kargo
   adminAccount:
     passwordHash: $2y$10$zoOrVKNCWFkAdHonL2/0BugXDo1gRK.z74JNoeAdJh9nF5SRBvl2C
     tokenSigningKey: fno5rplgO2vBBMYVZeZJAPgCyHUAbZLl
