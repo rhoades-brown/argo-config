@@ -17,6 +17,7 @@ spec:
     - image:
         repoURL: docker.io/ollama/ollama
         tagSelectionStrategy: SemVer
+        allowTags: ^[0-9]+\.[0-9]+\.[0-9]+$
     - git:
         repoURL: https://github.com/rhoades-brown/argo-config.git
         branch: main
