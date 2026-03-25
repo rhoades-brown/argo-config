@@ -12,37 +12,17 @@ spec:
     name: ""
     namespace: kube-prometheus-stack
     server: "https://kubernetes.default.svc"
-  source:
-    path: ""
-    repoURL: "https://prometheus-community.github.io/helm-charts"
-    targetRevision: 82.4.0
-    chart: kube-prometheus-stack
-    helm:
-        values: |
-          alertmanager:
-            ingress:
-              enabled: true
-              hosts:
-              - alertmanager.services.rhoades-brown.local
-              annotations:
-                nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-          
-          grafana:
-            ingress:
-              enabled: true
-              hosts:
-              - grafana.services.rhoades-brown.local
-              annotations:
-                nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-          prometheus:
-            ingress:
-              enabled: true
-              hosts:
-              - prometheus.services.rhoades-brown.local
-              annotations:
-                nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  sources:
+    - repoURL: "https://prometheus-community.github.io/helm-charts"
+      targetRevision: 82.4.0
+      chart: kube-prometheus-stack
+      helm:
+        valueFiles:
+          - $values/valuesfiles/kube-prometheus-stack.yaml
 
-  sources: []
+    - repoURL: 'https://github.com/rhoades-brown/argo-config.git'
+      targetRevision: {{ .Values.targetRevision }}
+      ref: values
   project: default
   syncPolicy:
     managedNamespaceMetadata:

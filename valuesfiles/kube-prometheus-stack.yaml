@@ -1,0 +1,23 @@
+alertmanager:
+  ingress:
+    enabled: true
+    hosts:
+    - alertmanager.services.rhoades-brown.local
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+
+grafana:
+  ingress:
+    enabled: true
+    hosts:
+    - grafana.services.rhoades-brown.local
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+prometheus:
+  ingress:
+    enabled: true
+    hosts:
+    - prometheus.services.rhoades-brown.local
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+

@@ -12,37 +12,16 @@ spec:
     namespace: openspeedtest
     server: 'https://kubernetes.default.svc'
   sources:
-  - repoURL: 'https://openspeedtest.github.io/Helm-chart'
-    targetRevision: 0.1.2
-    chart: openspeedtest
-    helm:
-      valuesObject:
-        service:
-          type: ClusterIP
-        ingress:
-          enabled: true
-          className: tailscale
-          hosts:
-            - paths:
-              - path: /
-                pathType: ImplementationSpecific
-          tls:
-            - hosts:
-              - openspeedtest
-#        ingress:
-#          enabled: true
-#          className: nginx
-#          annotations:
-#            nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-#            nginx.ingress.kubernetes.io/proxy-body-size: 10240m
-#          hosts:
-#            - host:  speedtest.services.rhoades-brown.local
-#              paths:
-#                - path: /
-#                  pathType: ImplementationSpecific
-#  - path: manifests/openspeedtest
-#    repoURL: 'https://github.com/rhoades-brown/argo-config.git'
-#    targetRevision: {{ .Values.targetRevision }}
+    - repoURL: 'https://openspeedtest.github.io/Helm-chart'
+      targetRevision: 0.1.2
+      chart: openspeedtest
+      helm:
+        valueFiles:
+          - $values/valuesfiles/openspeedtest.yaml
+
+    - repoURL: 'https://github.com/rhoades-brown/argo-config.git'
+      targetRevision: {{ .Values.targetRevision }}
+      ref: values
   project: default
   syncPolicy:
     automated:

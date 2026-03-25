@@ -1,0 +1,13 @@
+service:
+  type: ClusterIP
+ingress:
+  enabled: true
+  className: tailscale
+  hosts:
+    - paths:
+      - path: /
+        pathType: ImplementationSpecific
+  tls:
+    - hosts:
+      - openspeedtest
+

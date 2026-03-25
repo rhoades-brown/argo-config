@@ -11,14 +11,17 @@ spec:
   destination:
     namespace: cert-manager
     server: 'https://kubernetes.default.svc'
-  source:
-    repoURL: 'https://charts.jetstack.io'
-    targetRevision: v1.19.2
-    chart: cert-manager
-    helm:
-      parameters:
-        - name: installCRDs
-          value: 'true'
+  sources:
+    - repoURL: 'https://charts.jetstack.io'
+      targetRevision: v1.19.2
+      chart: cert-manager
+      helm:
+        valueFiles:
+          - $values/valuesfiles/cert-manager.yaml
+
+    - repoURL: 'https://github.com/rhoades-brown/argo-config.git'
+      targetRevision: {{ .Values.targetRevision }}
+      ref: values
   project: default
   syncPolicy:
     automated:

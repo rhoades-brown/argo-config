@@ -1,0 +1,48 @@
+csiDriver:
+  # should be globally unique for a given cluster
+  name: "org.democratic-csi.nfs"
+controller:
+  driver:
+    enabled: true
+    image:
+      tag: next
+
+storageClasses:
+  - name: freenas-nfs-csi
+    defaultClass: true
+    reclaimPolicy: Delete
+    volumeBindingMode: Immediate
+    allowVolumeExpansion: true
+    parameters:
+      # for block-based storage can be ext3, ext4, xfs
+      # for nfs should be nfs
+      fsType: nfs
+
+volumeSnapshotClasses:
+  - name: nfs
+    parameters:
+      detachedSnapshots: "true"
+
+    mountOptions:
+      - noatime
+      - nfsvers=3
+    secrets:
+      provisioner-secret:
+      controller-publish-secret:
+      node-stage-secret:
+      node-publish-secret:
+      controller-expand-secret:
+
+node:
+  tolerations:
+  - key: "nvidia.com/gpu"
+    operator: "Exists"
+    effect: "NoSchedule"
+
+driver:
+  image:
+    tag: next
+  config:
+    driver: freenas-api-nfs
+    existingConfigSecret: democratic-csi-driver-config
+

@@ -16,21 +16,12 @@ spec:
       targetRevision: 3.1.0
       chart: stirling-pdf-chart
       helm:
-        valuesObject:
-          serviceMonitor:
-            enabled: true
-          persistence:
-            enabled: true
-          ingress:
-            enabled: true
-            ingressclassName: nginx
-            annotations:
-              # proxy-body-size is set to 0 to remove the body limit on file uploads
-              nginx.ingress.kubernetes.io/proxy-body-size: "0"
-              nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-            hosts:
-              - name: pdf.services.rhoades-brown.local
-                tls: true
+        valueFiles:
+          - $values/valuesfiles/pdf.yaml
+
+    - repoURL: 'https://github.com/rhoades-brown/argo-config.git'
+      targetRevision: {{ .Values.targetRevision }}
+      ref: values
   project: default
   syncPolicy:
     automated:
