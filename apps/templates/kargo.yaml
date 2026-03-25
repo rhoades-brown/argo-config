@@ -14,7 +14,7 @@ spec:
       targetRevision: 1.9.5
       helm:
         valueFiles:
-          - $values/kargo/values.yaml
+          - $values/valuesfiles/kargo.yaml
     - repoURL: 'https://github.com/rhoades-brown/argo-config.git'
       targetRevision: {{ .Values.targetRevision }}
       ref: values
