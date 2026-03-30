@@ -23,6 +23,7 @@ spec:
         branch: main
         includePaths:
           - valuesfiles/open-webui.yaml
+          - configs/open-webui.yaml
     - chart:
         repoURL: https://helm.openwebui.com/
         name: open-webui
@@ -59,11 +60,20 @@ spec:
             updates:
               - key: ollama.image.tag
                 value: ${{ imageFrom("docker.io/ollama/ollama").Tag }}
+        - uses: yaml-update
+          as: update-chart
+          config:
+            path: ./src/configs/open-webui.yaml
+            updates:
+              - key: chartVersion
+                value: ${{ chartFrom("https://helm.openwebui.com/", "open-webui").Version }}
         - uses: git-commit
           as: commit
           config:
             path: ./src
-            message: ${{ outputs['update-ollama'].commitMessage }}
+            message: |
+              ${{ outputs['update-ollama'].commitMessage }}
+              ${{ outputs['update-chart'].commitMessage }}
         - uses: git-push
           config:
             path: ./src
@@ -76,6 +86,5 @@ spec:
                   - repoURL: https://helm.openwebui.com/
                     chart: open-webui
                     desiredRevision: ${{ chartFrom("https://helm.openwebui.com/", "open-webui").Version }}
-                    updateTargetRevision: true
                   - repoURL: ${{ vars.gitRepo }}
                     desiredRevision: ${{ outputs.commit.commit }}

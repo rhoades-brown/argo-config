@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: managed-apps
+  labels:
+    {{- include "apps.labels" . | nindent 4 }}
+spec:
+  goTemplate: true
+  goTemplateOptions:
+    - "missingkey=error"
+  generators:
+    - git:
+        repoURL: https://github.com/rhoades-brown/argo-config.git
+        revision: {{ .Values.targetRevision }}
+        files:
+          - path: "configs/*.yaml"
+  template:
+    metadata:
+      name: '{{ "{{.name}}" }}'
+      annotations:
+        kargo.akuity.io/authorized-stage: '{{ "{{.kargoAuthorizedStage}}" }}'
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
+    spec:
+      project: default
+      destination:
+        namespace: '{{ "{{.namespace}}" }}'
+        server: https://kubernetes.default.svc
+      sources:
+        - repoURL: '{{ "{{.chartRepoURL}}" }}'
+          targetRevision: '{{ "{{.chartVersion}}" }}'
+          chart: '{{ "{{.chartName}}" }}'
+          helm:
+            valueFiles:
+              - '$values/{{ "{{.valuesFile}}" }}'
+        - repoURL: https://github.com/rhoades-brown/argo-config.git
+          targetRevision: {{ .Values.targetRevision }}
+          ref: values
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+
