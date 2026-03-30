@@ -15,6 +15,9 @@ chart:
 # -- Path to the values file in the git repo
 valuesFile: ""
 
+# -- Optional path to raw manifests directory in the git repo
+manifestsPath: ""
+
 # -- Kargo delivery pipeline
 kargo:
   enabled: false
