@@ -45,12 +45,12 @@ spec:
           as: commit
           config:
             path: ./src
-            messageFromSteps:
+            message: |
               {{- range $i, $update := .Values.kargo.stage.imageUpdates }}
-              - update-image-{{ $i }}
+              ${{ "{{" }} outputs['update-image-{{ $i }}'].commitMessage {{ "}}" }}
               {{- end }}
               {{- if .Values.kargo.warehouse.chart.repoURL }}
-              - update-chart
+              ${{ "{{" }} outputs['update-chart'].commitMessage {{ "}}" }}
               {{- end }}
         - uses: git-push
           config:
