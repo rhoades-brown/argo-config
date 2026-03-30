@@ -2,7 +2,7 @@ name: open-webui
 namespace: open-webui
 chartRepoURL: https://helm.openwebui.com/
 chartName: open-webui
-chartVersion: 12.10.0
+chartVersion: 12.13.0
 valuesFile: valuesfiles/open-webui.yaml
 kargoAuthorizedStage: "kargo-open-webui:prod"
 
