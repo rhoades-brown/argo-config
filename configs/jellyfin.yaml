@@ -17,11 +17,17 @@ kargo:
   project: kargo-jellyfin
   autoPromotionEnabled: true
   warehouse:
-    images: []
+    images:
+      - repoURL: docker.io/jellyfin/jellyfin
+        tagSelectionStrategy: SemVer
+        allowTags: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
     chart:
       repoURL: https://jellyfin.github.io/jellyfin-helm
       name: jellyfin
       semverConstraint: ">=2.0.0"
   stage:
-    imageUpdates: []
+    imageUpdates:
+      - key: image.tag
+        image: docker.io/jellyfin/jellyfin
+        file: valuesfiles/jellyfin.yaml
 
