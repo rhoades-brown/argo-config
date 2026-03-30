@@ -1,8 +1,34 @@
 name: open-webui
 namespace: open-webui
-chartRepoURL: https://helm.openwebui.com/
-chartName: open-webui
-chartVersion: 12.13.0
+
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: main
+
+chart:
+  repoURL: https://helm.openwebui.com/
+  name: open-webui
+  version: "12.13.0"
+
 valuesFile: valuesfiles/open-webui.yaml
-kargoAuthorizedStage: "kargo-open-webui:prod"
+
+kargo:
+  enabled: true
+  project: kargo-open-webui
+  autoPromotionEnabled: true
+  warehouse:
+    images:
+      - repoURL: ghcr.io/open-webui/open-webui
+        tagSelectionStrategy: SemVer
+      - repoURL: docker.io/ollama/ollama
+        tagSelectionStrategy: SemVer
+        allowTags: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    chart:
+      repoURL: https://helm.openwebui.com/
+      name: open-webui
+      semverConstraint: ">=12.0.0"
+  stage:
+    imageUpdates:
+      - key: ollama.image.tag
+        image: docker.io/ollama/ollama
+        file: valuesfiles/open-webui.yaml
 

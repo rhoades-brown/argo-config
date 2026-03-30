@@ -1,0 +1,7 @@
+{{- if .Values.kargo.enabled }}
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Project
+metadata:
+  name: {{ include "app-loader.kargoProject" . }}
+{{- end }}
+

@@ -1,0 +1,36 @@
+# -- Application identity
+name: ""
+namespace: ""
+
+# -- Git repository for ArgoCD source
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: main
+
+# -- Upstream Helm chart source
+chart:
+  repoURL: ""
+  name: ""
+  version: ""
+
+# -- Path to the values file in the git repo
+valuesFile: ""
+
+# -- Kargo delivery pipeline
+kargo:
+  enabled: false
+  project: ""
+  autoPromotionEnabled: true
+  warehouse:
+    images: []
+    #  - repoURL: docker.io/ollama/ollama
+    #    tagSelectionStrategy: SemVer
+    #    allowTags: ""
+    chart:
+      repoURL: ""
+      name: ""
+      semverConstraint: ""
+  stage:
+    imageUpdates: []
+    #  - key: ollama.image.tag
+    #    image: docker.io/ollama/ollama
+    #    file: valuesfiles/open-webui.yaml

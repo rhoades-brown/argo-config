@@ -16,9 +16,7 @@ spec:
           - path: "configs/*.yaml"
   template:
     metadata:
-      name: '{{ "{{.name}}" }}'
-      annotations:
-        kargo.akuity.io/authorized-stage: '{{ "{{.kargoAuthorizedStage}}" }}'
+      name: '{{ "{{.name}}" }}-loader'
       finalizers:
         - resources-finalizer.argocd.argoproj.io
     spec:
@@ -27,12 +25,12 @@ spec:
         namespace: '{{ "{{.namespace}}" }}'
         server: https://kubernetes.default.svc
       sources:
-        - repoURL: '{{ "{{.chartRepoURL}}" }}'
-          targetRevision: '{{ "{{.chartVersion}}" }}'
-          chart: '{{ "{{.chartName}}" }}'
+        - repoURL: https://github.com/rhoades-brown/argo-config.git
+          targetRevision: {{ .Values.targetRevision }}
+          path: app-loader
           helm:
             valueFiles:
-              - '$values/{{ "{{.valuesFile}}" }}'
+              - $values/configs/{{ "{{.name}}" }}.yaml
         - repoURL: https://github.com/rhoades-brown/argo-config.git
           targetRevision: {{ .Values.targetRevision }}
           ref: values

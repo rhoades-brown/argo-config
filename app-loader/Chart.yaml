@@ -1,0 +1,5 @@
+apiVersion: v2
+name: app-loader
+description: Deploys an ArgoCD Application and optional Kargo delivery pipeline
+type: application
+version: 0.1.0

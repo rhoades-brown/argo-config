@@ -1,0 +1,73 @@
+{{- if .Values.kargo.enabled }}
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: prod
+  namespace: {{ include "app-loader.kargoProject" . }}
+spec:
+  autoPromotionEnabled: {{ .Values.kargo.autoPromotionEnabled }}
+  requestedFreight:
+    - origin:
+        kind: Warehouse
+        name: {{ .Values.name }}
+      sources:
+        direct: true
+  promotionTemplate:
+    spec:
+      vars:
+        - name: gitRepo
+          value: {{ .Values.gitRepo }}
+      steps:
+        - uses: git-clone
+          config:
+            repoURL: ${{ "{{" }} vars.gitRepo {{ "}}" }}
+            checkout:
+              - branch: {{ .Values.targetRevision }}
+                path: ./src
+        {{- range $i, $update := .Values.kargo.stage.imageUpdates }}
+        - uses: yaml-update
+          as: update-image-{{ $i }}
+          config:
+            path: ./src/{{ $update.file }}
+            updates:
+              - key: {{ $update.key }}
+                value: ${{ "{{" }} imageFrom({{ $update.image | quote }}).Tag {{ "}}" }}
+        {{- end }}
+        {{- if .Values.kargo.warehouse.chart.repoURL }}
+        - uses: yaml-update
+          as: update-chart
+          config:
+            path: ./src/configs/{{ .Values.name }}.yaml
+            updates:
+              - key: chart.version
+                value: ${{ "{{" }} chartFrom({{ .Values.kargo.warehouse.chart.repoURL | quote }}, {{ .Values.kargo.warehouse.chart.name | quote }}).Version {{ "}}" }}
+        {{- end }}
+        - uses: git-commit
+          as: commit
+          config:
+            path: ./src
+            messageFromSteps:
+              {{- range $i, $update := .Values.kargo.stage.imageUpdates }}
+              - update-image-{{ $i }}
+              {{- end }}
+              {{- if .Values.kargo.warehouse.chart.repoURL }}
+              - update-chart
+              {{- end }}
+        - uses: git-push
+          config:
+            path: ./src
+        - uses: argocd-update
+          config:
+            apps:
+              - name: {{ .Values.name }}
+                namespace: argocd
+                sources:
+                  {{- if .Values.kargo.warehouse.chart.repoURL }}
+                  - repoURL: {{ .Values.kargo.warehouse.chart.repoURL }}
+                    chart: {{ .Values.kargo.warehouse.chart.name }}
+                    desiredRevision: ${{ "{{" }} chartFrom({{ .Values.kargo.warehouse.chart.repoURL | quote }}, {{ .Values.kargo.warehouse.chart.name | quote }}).Version {{ "}}" }}
+                  {{- end }}
+                  - repoURL: ${{ "{{" }} vars.gitRepo {{ "}}" }}
+                    desiredRevision: ${{ "{{" }} outputs.commit.commit {{ "}}" }}
+{{- end }}
+

@@ -1,0 +1,30 @@
+{{- if .Values.kargo.enabled }}
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Warehouse
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ include "app-loader.kargoProject" . }}
+spec:
+  subscriptions:
+    {{- range .Values.kargo.warehouse.images }}
+    - image:
+        repoURL: {{ .repoURL }}
+        tagSelectionStrategy: {{ .tagSelectionStrategy | default "SemVer" }}
+        {{- if .allowTags }}
+        allowTags: {{ .allowTags }}
+        {{- end }}
+    {{- end }}
+    - git:
+        repoURL: {{ .Values.gitRepo }}
+        branch: {{ .Values.targetRevision }}
+        includePaths:
+          - {{ .Values.valuesFile }}
+          - configs/{{ .Values.name }}.yaml
+    {{- if .Values.kargo.warehouse.chart.repoURL }}
+    - chart:
+        repoURL: {{ .Values.kargo.warehouse.chart.repoURL }}
+        name: {{ .Values.kargo.warehouse.chart.name }}
+        semverConstraint: {{ .Values.kargo.warehouse.chart.semverConstraint | quote }}
+    {{- end }}
+{{- end }}
+

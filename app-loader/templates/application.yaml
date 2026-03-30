@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Values.name }}
+  namespace: argocd
+  annotations:
+    {{- if .Values.kargo.enabled }}
+    kargo.akuity.io/authorized-stage: "{{ include "app-loader.kargoProject" . }}:prod"
+    {{- end }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  destination:
+    namespace: {{ .Values.namespace }}
+    server: https://kubernetes.default.svc
+  sources:
+    - repoURL: {{ .Values.chart.repoURL }}
+      targetRevision: {{ .Values.chart.version | quote }}
+      chart: {{ .Values.chart.name }}
+      helm:
+        valueFiles:
+          - $values/{{ .Values.valuesFile }}
+    - repoURL: {{ .Values.gitRepo }}
+      targetRevision: {{ .Values.targetRevision }}
+      ref: values
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
