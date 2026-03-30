@@ -24,11 +24,9 @@ spec:
     - repoURL: {{ .Values.gitRepo }}
       targetRevision: {{ .Values.targetRevision }}
       ref: values
-    {{- if .Values.manifestsPath }}
-    - repoURL: {{ .Values.gitRepo }}
-      targetRevision: {{ .Values.targetRevision }}
+      {{- if .Values.manifestsPath }}
       path: {{ .Values.manifestsPath }}
-    {{- end }}
+      {{- end }}
   syncPolicy:
     automated:
       prune: true
