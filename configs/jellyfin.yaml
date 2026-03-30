@@ -1,0 +1,27 @@
+name: jellyfin
+namespace: jellyfin
+
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: main
+
+chart:
+  repoURL: https://jellyfin.github.io/jellyfin-helm
+  name: jellyfin
+  version: 2.7.0
+
+valuesFile: valuesfiles/jellyfin.yaml
+manifestsPath: manifests/jellyfin
+
+kargo:
+  enabled: true
+  project: kargo-jellyfin
+  autoPromotionEnabled: true
+  warehouse:
+    images: []
+    chart:
+      repoURL: https://jellyfin.github.io/jellyfin-helm
+      name: jellyfin
+      semverConstraint: ">=2.0.0"
+  stage:
+    imageUpdates: []
+
