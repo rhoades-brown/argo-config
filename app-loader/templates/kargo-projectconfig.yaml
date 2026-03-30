@@ -8,6 +8,6 @@ spec:
   promotionPolicies:
     - stageSelector:
         name: prod
-      autoPromotionEnabled: true
+      autoPromotionEnabled: {{ .Values.kargo.autoPromotionEnabled }}
 {{- end }}
 

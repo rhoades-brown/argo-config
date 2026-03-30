@@ -5,7 +5,6 @@ metadata:
   name: prod
   namespace: {{ include "app-loader.kargoProject" . }}
 spec:
-  autoPromotionEnabled: {{ .Values.kargo.autoPromotionEnabled }}
   requestedFreight:
     - origin:
         kind: Warehouse
