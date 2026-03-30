@@ -55,6 +55,18 @@ spec:
         - uses: git-push
           config:
             path: ./src
+        - uses: http
+          config:
+            method: PATCH
+            url: https://kubernetes.default.svc/apis/argoproj.io/v1alpha1/namespaces/argocd/applicationsets/managed-apps
+            headers:
+              - name: Content-Type
+                value: application/merge-patch+json
+              - name: Authorization
+                value: Bearer ${{ "{{" }} secret("k8s-api-token").token {{ "}}" }}
+            insecureSkipTLSVerify: true
+            body: '{"metadata":{"annotations":{"argocd.argoproj.io/application-set-refresh":"true"}}}'
+            successExpression: response.status == 200
         - uses: argocd-update
           config:
             apps:
