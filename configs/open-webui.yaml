@@ -16,7 +16,7 @@ kargo:
   project: kargo-open-webui
   autoPromotionEnabled: true
   warehouse:
-    interval: "1h"
+    interval: 1h0m0s
     images:
       - repoURL: ghcr.io/open-webui/open-webui
         tagSelectionStrategy: SemVer

@@ -13,7 +13,7 @@ kargo:
   project: kargo-whoami
   autoPromotionEnabled: true
   warehouse:
-    interval: "1h"
+    interval: 1h0m0s
     images:
       - repoURL: docker.io/traefik/whoami
         tagSelectionStrategy: SemVer

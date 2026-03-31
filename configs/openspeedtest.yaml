@@ -16,7 +16,7 @@ kargo:
   project: kargo-openspeedtest
   autoPromotionEnabled: true
   warehouse:
-    interval: "1h"
+    interval: 1h0m0s
     images:
       - repoURL: docker.io/openspeedtest/latest
         tagSelectionStrategy: SemVer
