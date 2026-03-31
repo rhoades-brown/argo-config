@@ -38,7 +38,7 @@ ignoreDifferences:
   - kind: Secret
     name: kube-prometheus-stack-grafana
     jqPathExpressions:
-      - '.data.admin-password'
+      - '.data["admin-password"]'
 
 kargo:
   enabled: true
