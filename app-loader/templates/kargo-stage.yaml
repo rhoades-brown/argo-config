@@ -63,7 +63,7 @@ spec:
               - name: Content-Type
                 value: application/merge-patch+json
               - name: Authorization
-                value: Bearer ${{ "{{" }} secret("k8s-api-token").token {{ "}}" }}
+                value: Bearer ${{ "{{" }} sharedSecret("kargo-k8s-api-token").token {{ "}}" }}
             insecureSkipTLSVerify: true
             body: '{"metadata":{"annotations":{"argocd.argoproj.io/application-set-refresh":"true"}}}'
             successExpression: response.status == 200
