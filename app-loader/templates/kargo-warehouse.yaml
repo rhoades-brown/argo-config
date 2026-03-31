@@ -25,7 +25,9 @@ spec:
     {{- if .Values.kargo.warehouse.chart.repoURL }}
     - chart:
         repoURL: {{ .Values.kargo.warehouse.chart.repoURL }}
+        {{- if .Values.kargo.warehouse.chart.name }}
         name: {{ .Values.kargo.warehouse.chart.name }}
+        {{- end }}
         semverConstraint: {{ .Values.kargo.warehouse.chart.semverConstraint | quote }}
     {{- end }}
 {{- end }}

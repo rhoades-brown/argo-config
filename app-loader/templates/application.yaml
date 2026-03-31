@@ -17,7 +17,9 @@ spec:
   sources:
     - repoURL: {{ .Values.chart.repoURL }}
       targetRevision: {{ .Values.chart.version | quote }}
+      {{- if .Values.chart.name }}
       chart: {{ .Values.chart.name }}
+      {{- end }}
       {{- if .Values.valuesFile }}
       helm:
         valueFiles:

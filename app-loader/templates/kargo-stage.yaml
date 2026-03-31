@@ -39,7 +39,7 @@ spec:
             path: ./src/configs/{{ .Values.name }}.yaml
             updates:
               - key: chart.version
-                value: ${{ "{{" }} chartFrom({{ .Values.kargo.warehouse.chart.repoURL | quote }}, {{ .Values.kargo.warehouse.chart.name | quote }}).Version {{ "}}" }}
+                value: ${{ "{{" }} chartFrom({{ .Values.kargo.warehouse.chart.repoURL | quote }}, {{ .Values.kargo.warehouse.chart.name | default .Values.chart.name | quote }}).Version {{ "}}" }}
         {{- end }}
         - uses: git-commit
           as: commit
@@ -75,8 +75,10 @@ spec:
                 sources:
                   {{- if .Values.kargo.warehouse.chart.repoURL }}
                   - repoURL: {{ .Values.kargo.warehouse.chart.repoURL }}
+                    {{- if .Values.kargo.warehouse.chart.name }}
                     chart: {{ .Values.kargo.warehouse.chart.name }}
-                    desiredRevision: ${{ "{{" }} chartFrom({{ .Values.kargo.warehouse.chart.repoURL | quote }}, {{ .Values.kargo.warehouse.chart.name | quote }}).Version {{ "}}" }}
+                    {{- end }}
+                    desiredRevision: ${{ "{{" }} chartFrom({{ .Values.kargo.warehouse.chart.repoURL | quote }}, {{ .Values.kargo.warehouse.chart.name | default .Values.chart.name | quote }}).Version {{ "}}" }}
                   {{- end }}
                   - repoURL: ${{ "{{" }} vars.gitRepo {{ "}}" }}
                     desiredRevision: ${{ "{{" }} outputs.commit.commit {{ "}}" }}
