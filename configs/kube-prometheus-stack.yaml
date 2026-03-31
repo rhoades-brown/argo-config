@@ -31,6 +31,10 @@ ignoreDifferences:
     kind: ValidatingWebhookConfiguration
     jqPathExpressions:
       - '.webhooks[]?.clientConfig.caBundle'
+  - group: batch
+    kind: Job
+    jqPathExpressions:
+      - '.spec.template.spec.containers[]?.resources'
 
 kargo:
   enabled: true
