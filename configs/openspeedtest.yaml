@@ -1,0 +1,32 @@
+name: openspeedtest
+namespace: openspeedtest
+
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: main
+
+chart:
+  repoURL: https://openspeedtest.github.io/Helm-chart
+  name: openspeedtest
+  version: 0.1.2
+
+valuesFile: valuesfiles/openspeedtest.yaml
+
+kargo:
+  enabled: true
+  project: kargo-openspeedtest
+  autoPromotionEnabled: true
+  warehouse:
+    images:
+      - repoURL: docker.io/openspeedtest/latest
+        tagSelectionStrategy: SemVer
+        allowTags: "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+    chart:
+      repoURL: https://openspeedtest.github.io/Helm-chart
+      name: openspeedtest
+      semverConstraint: ">=0.1.0"
+  stage:
+    imageUpdates:
+      - key: image.tag
+        image: docker.io/openspeedtest/latest
+        file: valuesfiles/openspeedtest.yaml
+

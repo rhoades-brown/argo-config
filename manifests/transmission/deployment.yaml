@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: transmission
-          image: lscr.io/linuxserver/transmission:latest
+          image: lscr.io/linuxserver/transmission:version-4.1.1-r1
           env:
             - name: TZ
               value: "Europe/London"

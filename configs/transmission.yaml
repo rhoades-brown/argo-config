@@ -1,0 +1,27 @@
+name: transmission
+namespace: transmission
+
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: main
+
+manifestsPath: manifests/transmission
+
+kargo:
+  enabled: true
+  project: kargo-transmission
+  autoPromotionEnabled: true
+  warehouse:
+    images:
+      - repoURL: lscr.io/linuxserver/transmission
+        tagSelectionStrategy: Lexicographic
+        allowTags: "^version-.*"
+    chart:
+      repoURL: ""
+      semverConstraint: ""
+  stage:
+    imageUpdates:
+      - key: spec.template.spec.containers[0].image
+        image: lscr.io/linuxserver/transmission
+        file: manifests/transmission/deployment.yaml
+        useFullImage: true
+

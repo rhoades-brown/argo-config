@@ -30,7 +30,11 @@ spec:
             path: ./src/{{ $update.file }}
             updates:
               - key: {{ $update.key }}
+                {{- if $update.useFullImage }}
+                value: ${{ "{{" }} imageFrom({{ $update.image | quote }}).Name + ":" + imageFrom({{ $update.image | quote }}).Tag {{ "}}" }}
+                {{- else }}
                 value: ${{ "{{" }} imageFrom({{ $update.image | quote }}).Tag {{ "}}" }}
+                {{- end }}
         {{- end }}
         {{- if .Values.kargo.warehouse.chart.repoURL }}
         - uses: yaml-update
