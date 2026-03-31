@@ -21,6 +21,9 @@ manifestsPath: ""
 # -- Optional managed namespace metadata for syncPolicy
 managedNamespaceMetadata: {}
 
+# -- Optional extra syncOptions beyond CreateNamespace=true
+extraSyncOptions: []
+
 # -- Kargo delivery pipeline
 kargo:
   enabled: false

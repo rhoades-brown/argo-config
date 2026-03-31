@@ -1,0 +1,26 @@
+name: cert-manager
+namespace: cert-manager
+
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: main
+
+chart:
+  repoURL: https://charts.jetstack.io
+  name: cert-manager
+  version: v1.19.2
+
+valuesFile: valuesfiles/cert-manager.yaml
+
+kargo:
+  enabled: true
+  project: kargo-cert-manager
+  autoPromotionEnabled: true
+  warehouse:
+    images: []
+    chart:
+      repoURL: https://charts.jetstack.io
+      name: cert-manager
+      semverConstraint: ">=1.19.0"
+  stage:
+    imageUpdates: []
+
