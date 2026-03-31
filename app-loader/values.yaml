@@ -45,7 +45,7 @@ kargo:
   project: ""
   autoPromotionEnabled: true
   warehouse:
-    interval: "10m"
+    interval: "10m0s"
     images: []
     #  - repoURL: docker.io/ollama/ollama
     #    tagSelectionStrategy: SemVer
