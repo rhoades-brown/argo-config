@@ -57,7 +57,6 @@ kargo:
     images: []
     chart:
       repoURL: oci://quay.io/cilium/charts
-      name: cilium
       semverConstraint: ">=1.18.0"
   stage:
     imageUpdates: []
