@@ -24,4 +24,12 @@ roleRef:
   kind: ClusterRole
   name: kargo-applicationset-patch
   apiGroup: rbac.authorization.k8s.io
-
+#---
+#apiVersion: v1
+#kind: Secret
+#metadata:
+#  name: kargo-controller-token
+#  namespace: kargo
+#  annotations:
+#    kubernetes.io/service-account.name: kargo-controller
+#type: kubernetes.io/service-account-token

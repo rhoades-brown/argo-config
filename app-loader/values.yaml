@@ -18,6 +18,9 @@ valuesFile: ""
 # -- Optional path to raw manifests directory in the git repo
 manifestsPath: ""
 
+# -- Optional managed namespace metadata for syncPolicy
+managedNamespaceMetadata: {}
+
 # -- Kargo delivery pipeline
 kargo:
   enabled: false

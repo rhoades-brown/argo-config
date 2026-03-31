@@ -1,0 +1,32 @@
+name: tailscale
+namespace: tailscale
+
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: main
+
+chart:
+  repoURL: https://pkgs.tailscale.com/helmcharts
+  name: tailscale-operator
+  version: 1.94.2
+
+manifestsPath: manifests/tailscale
+
+managedNamespaceMetadata:
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/warn: privileged
+
+kargo:
+  enabled: true
+  project: kargo-tailscale
+  autoPromotionEnabled: true
+  warehouse:
+    images: []
+    chart:
+      repoURL: https://pkgs.tailscale.com/helmcharts
+      name: tailscale-operator
+      semverConstraint: ">=1.90.0"
+  stage:
+    imageUpdates: []
+
