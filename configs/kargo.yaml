@@ -5,7 +5,7 @@ gitRepo: https://github.com/rhoades-brown/argo-config.git
 targetRevision: main
 
 chart:
-  repoURL: ghcr.io/akuity/kargo-charts
+  repoURL: oci://ghcr.io/akuity/kargo-charts/kargo
   name: kargo
   version: 1.9.5
 
@@ -19,8 +19,7 @@ kargo:
   warehouse:
     images: []
     chart:
-      repoURL: ghcr.io/akuity/kargo-charts
-      name: kargo
+      repoURL: oci://ghcr.io/akuity/kargo-charts/kargo
       semverConstraint: ">=1.9.0"
   stage:
     imageUpdates: []
