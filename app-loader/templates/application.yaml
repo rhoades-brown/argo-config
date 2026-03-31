@@ -15,6 +15,7 @@ spec:
     namespace: {{ .Values.namespace }}
     server: https://kubernetes.default.svc
   sources:
+    {{- if .Values.chart.repoURL }}
     - repoURL: {{ .Values.chart.repoURL }}
       targetRevision: {{ .Values.chart.version | quote }}
       chart: {{ .Values.chart.name }}
@@ -23,15 +24,24 @@ spec:
         valueFiles:
           - $values/{{ .Values.valuesFile }}
       {{- end }}
-    {{- if or .Values.valuesFile .Values.manifestsPath }}
+    {{- else if .Values.helmPath }}
     - repoURL: {{ .Values.gitRepo }}
       targetRevision: {{ .Values.targetRevision }}
-      {{- if .Values.valuesFile }}
+      path: {{ .Values.helmPath }}
+      {{- if .Values.valuesObject }}
+      helm:
+        valuesObject: {{- toYaml .Values.valuesObject | nindent 10 }}
+      {{- end }}
+    {{- end }}
+    {{- if and .Values.valuesFile .Values.chart.repoURL }}
+    - repoURL: {{ .Values.gitRepo }}
+      targetRevision: {{ .Values.targetRevision }}
       ref: values
-      {{- end }}
-      {{- if .Values.manifestsPath }}
+    {{- end }}
+    {{- if .Values.manifestsPath }}
+    - repoURL: {{ .Values.gitRepo }}
+      targetRevision: {{ .Values.targetRevision }}
       path: {{ .Values.manifestsPath }}
-      {{- end }}
     {{- end }}
   syncPolicy:
     {{- with .Values.managedNamespaceMetadata }}

@@ -1,0 +1,26 @@
+name: whoami
+namespace: whoami
+
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: main
+
+helmPath: helm/whoami
+
+valuesObject:
+  ingress:
+    enabled: true
+    className: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    hosts:
+      - host: whoami.services.rhoades-brown.local
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+      - hosts:
+        - whoami.services.rhoades-brown.local
+
+kargo:
+  enabled: false
+

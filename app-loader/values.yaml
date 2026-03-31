@@ -15,6 +15,12 @@ chart:
 # -- Path to the values file in the git repo
 valuesFile: ""
 
+# -- Optional path to a local helm chart in the git repo (instead of upstream chart)
+helmPath: ""
+
+# -- Optional inline values object for helm charts (used with helmPath)
+valuesObject: {}
+
 # -- Optional path to raw manifests directory in the git repo
 manifestsPath: ""
 
