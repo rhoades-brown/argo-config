@@ -1,0 +1,64 @@
+name: cilium
+namespace: kube-system
+
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: main
+
+chart:
+  repoURL: oci://quay.io/cilium/charts
+  name: cilium
+  version: 1.18.6
+
+valuesFile: valuesfiles/cilium.yaml
+
+manifestsPath: manifests/cilium
+
+managedNamespaceMetadata:
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/warn: privileged
+
+extraSyncOptions:
+  - ServerSideApply=true
+
+ignoreDifferences:
+  - group: ""
+    kind: ConfigMap
+    name: hubble-ca-cert
+    jsonPointers:
+      - /data/ca.crt
+  - group: ""
+    kind: Secret
+    name: hubble-relay-client-certs
+    jsonPointers:
+      - /data/ca.crt
+      - /data/tls.crt
+      - /data/tls.key
+  - group: ""
+    kind: Secret
+    name: hubble-server-certs
+    jsonPointers:
+      - /data/ca.crt
+      - /data/tls.crt
+      - /data/tls.key
+  - group: ""
+    kind: Secret
+    name: cilium-ca
+    jsonPointers:
+      - /data/ca.crt
+      - /data/ca.key
+
+kargo:
+  enabled: true
+  project: kargo-cilium
+  autoPromotionEnabled: false
+  warehouse:
+    images: []
+    chart:
+      repoURL: oci://quay.io/cilium/charts
+      name: cilium
+      semverConstraint: ">=1.18.0"
+  stage:
+    imageUpdates: []
+
