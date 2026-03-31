@@ -74,10 +74,8 @@ spec:
                 namespace: argocd
                 sources:
                   {{- if .Values.kargo.warehouse.chart.repoURL }}
-                  - repoURL: {{ .Values.kargo.warehouse.chart.repoURL }}
-                    {{- if .Values.kargo.warehouse.chart.name }}
-                    chart: {{ .Values.kargo.warehouse.chart.name }}
-                    {{- end }}
+                  - repoURL: {{ .Values.chart.repoURL }}
+                    chart: {{ .Values.chart.name }}
                     desiredRevision: ${{ "{{" }} chartFrom({{ .Values.kargo.warehouse.chart.repoURL | quote }}, {{ .Values.kargo.warehouse.chart.name | default .Values.chart.name | quote }}).Version {{ "}}" }}
                   {{- end }}
                   - repoURL: ${{ "{{" }} vars.gitRepo {{ "}}" }}

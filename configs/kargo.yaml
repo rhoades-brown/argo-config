@@ -6,7 +6,7 @@ targetRevision: main
 
 chart:
   repoURL: oci://ghcr.io/akuity/kargo-charts/kargo
-  name: ""
+  name: kargo
   version: 1.9.5
 
 valuesFile: valuesfiles/kargo.yaml
