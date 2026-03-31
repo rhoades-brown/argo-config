@@ -21,6 +21,12 @@ helmPath: ""
 # -- Optional inline values object for helm charts (used with helmPath)
 valuesObject: {}
 
+# -- Optional external git source (for non-helm, non-local repos e.g. raw CRDs)
+gitSource:
+  repoURL: ""
+  path: ""
+  targetRevision: ""
+
 # -- Optional path to raw manifests directory in the git repo
 manifestsPath: ""
 

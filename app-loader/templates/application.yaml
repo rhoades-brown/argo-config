@@ -33,6 +33,10 @@ spec:
         valueFiles:
           - $values/{{ .Values.valuesFile }}
       {{- end }}
+    {{- else if .Values.gitSource.repoURL }}
+    - repoURL: {{ .Values.gitSource.repoURL }}
+      targetRevision: {{ .Values.gitSource.targetRevision }}
+      path: {{ .Values.gitSource.path }}
     {{- end }}
     {{- if .Values.valuesFile }}
     - repoURL: {{ .Values.gitRepo }}
