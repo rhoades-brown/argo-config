@@ -94,7 +94,9 @@ spec:
                   - repoURL: {{ .Values.gitSource.repoURL }}
                     desiredRevision: ${{ "{{" }} commitFrom({{ .Values.kargo.warehouse.gitSource.repoURL | quote }}).Tag {{ "}}" }}
                   {{- end }}
+                  {{- if or .Values.helmPath .Values.valuesFile .Values.manifestsPath .Values.chart.repoURL }}
                   - repoURL: ${{ "{{" }} vars.gitRepo {{ "}}" }}
                     desiredRevision: ${{ "{{" }} outputs.commit.commit {{ "}}" }}
+                  {{- end }}
 {{- end }}
 
