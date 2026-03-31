@@ -35,6 +35,10 @@ ignoreDifferences:
     kind: Job
     jqPathExpressions:
       - '.spec.template.spec.containers[]?.resources'
+  - kind: Secret
+    name: kube-prometheus-stack-grafana
+    jqPathExpressions:
+      - '.data.admin-password'
 
 kargo:
   enabled: true
