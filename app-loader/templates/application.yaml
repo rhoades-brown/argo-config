@@ -38,15 +38,15 @@ spec:
       targetRevision: {{ .Values.gitSource.targetRevision }}
       path: {{ .Values.gitSource.path }}
     {{- end }}
-    {{- if .Values.valuesFile }}
+    {{- if or .Values.valuesFile .Values.manifestsPath }}
     - repoURL: {{ .Values.gitRepo }}
       targetRevision: {{ .Values.targetRevision }}
+      {{- if .Values.valuesFile }}
       ref: values
-    {{- end }}
-    {{- if .Values.manifestsPath }}
-    - repoURL: {{ .Values.gitRepo }}
-      targetRevision: {{ .Values.targetRevision }}
+      {{- end }}
+      {{- if .Values.manifestsPath }}
       path: {{ .Values.manifestsPath }}
+      {{- end }}
     {{- end }}
   {{- with .Values.ignoreDifferences }}
   ignoreDifferences:
