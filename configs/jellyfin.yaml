@@ -17,6 +17,7 @@ kargo:
   project: kargo-jellyfin
   autoPromotionEnabled: true
   warehouse:
+    interval: "1h"
     images:
       - repoURL: docker.io/jellyfin/jellyfin
         tagSelectionStrategy: SemVer

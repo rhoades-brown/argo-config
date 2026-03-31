@@ -5,6 +5,7 @@ metadata:
   name: {{ .Values.name }}
   namespace: {{ include "app-loader.kargoProject" . }}
 spec:
+  interval: {{ .Values.kargo.warehouse.interval | default "10m" }}
   subscriptions:
     {{- range .Values.kargo.warehouse.images }}
     - image:
