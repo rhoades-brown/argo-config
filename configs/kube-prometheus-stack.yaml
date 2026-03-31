@@ -7,7 +7,7 @@ targetRevision: main
 chart:
   repoURL: https://prometheus-community.github.io/helm-charts
   name: kube-prometheus-stack
-  version: 82.4.0
+  version: 82.16.0
 
 valuesFile: valuesfiles/kube-prometheus-stack.yaml
 
