@@ -1,0 +1,44 @@
+name: argo-rollouts
+namespace: argo-rollouts
+
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: main
+
+chart:
+  repoURL: https://argoproj.github.io/argo-helm
+  name: argo-rollouts
+  version: 2.40.3
+
+valuesObject:
+  dashboard:
+    enabled: true
+    ingress:
+      enabled: true
+      ingressclassName: nginx
+      annotations:
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      hosts:
+        - argo-rollouts.services.rhoades-brown.local
+      tls:
+        - hosts:
+            - argo-rollouts.services.rhoades-brown.local
+
+ignoreDifferences:
+  - group: apiextensions.k8s.io
+    kind: CustomResourceDefinition
+    jsonPointers:
+      - /spec/preserveUnknownFields
+
+kargo:
+  enabled: true
+  project: kargo-argo-rollouts
+  autoPromotionEnabled: true
+  warehouse:
+    images: []
+    chart:
+      repoURL: https://argoproj.github.io/argo-helm
+      name: argo-rollouts
+      semverConstraint: ">=2.40.0"
+  stage:
+    imageUpdates: []
+

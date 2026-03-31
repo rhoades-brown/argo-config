@@ -19,10 +19,16 @@ spec:
     - repoURL: {{ .Values.chart.repoURL }}
       targetRevision: {{ .Values.chart.version | quote }}
       chart: {{ .Values.chart.name }}
-      {{- if .Values.valuesFile }}
+      {{- if or .Values.valuesFile .Values.valuesObject }}
       helm:
+        {{- if .Values.valuesFile }}
         valueFiles:
           - $values/{{ .Values.valuesFile }}
+        {{- end }}
+        {{- if .Values.valuesObject }}
+        valuesObject:
+          {{- toYaml .Values.valuesObject | nindent 10 }}
+        {{- end }}
       {{- end }}
     {{- else if .Values.helmPath }}
     - repoURL: {{ .Values.gitRepo }}
