@@ -10,5 +10,17 @@ gitSource:
   targetRevision: v8.3.0
 
 kargo:
-  enabled: false
+  enabled: true
+  project: kargo-external-snapshotter
+  autoPromotionEnabled: true
+  warehouse:
+    images: []
+    chart:
+      repoURL: ""
+      semverConstraint: ""
+    gitSource:
+      repoURL: https://github.com/kubernetes-csi/external-snapshotter.git
+      semverConstraint: ">=8.0.0"
+  stage:
+    imageUpdates: []
 

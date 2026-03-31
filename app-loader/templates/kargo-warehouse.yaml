@@ -30,5 +30,11 @@ spec:
         {{- end }}
         semverConstraint: {{ .Values.kargo.warehouse.chart.semverConstraint | quote }}
     {{- end }}
+    {{- if .Values.kargo.warehouse.gitSource.repoURL }}
+    - git:
+        repoURL: {{ .Values.kargo.warehouse.gitSource.repoURL }}
+        commitSelectionStrategy: SemVer
+        semverConstraint: {{ .Values.kargo.warehouse.gitSource.semverConstraint | quote }}
+    {{- end }}
 {{- end }}
 

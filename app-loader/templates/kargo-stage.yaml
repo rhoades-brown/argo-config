@@ -41,6 +41,15 @@ spec:
               - key: chart.version
                 value: ${{ "{{" }} chartFrom({{ .Values.kargo.warehouse.chart.repoURL | quote }}, {{ .Values.kargo.warehouse.chart.name | default .Values.chart.name | quote }}).Version {{ "}}" }}
         {{- end }}
+        {{- if .Values.kargo.warehouse.gitSource.repoURL }}
+        - uses: yaml-update
+          as: update-git-source
+          config:
+            path: ./src/configs/{{ .Values.name }}.yaml
+            updates:
+              - key: gitSource.targetRevision
+                value: ${{ "{{" }} commitFrom({{ .Values.kargo.warehouse.gitSource.repoURL | quote }}).Tag {{ "}}" }}
+        {{- end }}
         - uses: git-commit
           as: commit
           config:
@@ -51,6 +60,9 @@ spec:
               {{- end }}
               {{- if .Values.kargo.warehouse.chart.repoURL }}
               ${{ "{{" }} outputs['update-chart'].commitMessage {{ "}}" }}
+              {{- end }}
+              {{- if .Values.kargo.warehouse.gitSource.repoURL }}
+              ${{ "{{" }} outputs['update-git-source'].commitMessage {{ "}}" }}
               {{- end }}
         - uses: git-push
           config:
@@ -77,6 +89,10 @@ spec:
                   - repoURL: {{ .Values.chart.repoURL }}
                     chart: {{ .Values.chart.name }}
                     desiredRevision: ${{ "{{" }} chartFrom({{ .Values.kargo.warehouse.chart.repoURL | quote }}, {{ .Values.kargo.warehouse.chart.name | default .Values.chart.name | quote }}).Version {{ "}}" }}
+                  {{- end }}
+                  {{- if .Values.kargo.warehouse.gitSource.repoURL }}
+                  - repoURL: {{ .Values.gitSource.repoURL }}
+                    desiredRevision: ${{ "{{" }} commitFrom({{ .Values.kargo.warehouse.gitSource.repoURL | quote }}).Tag {{ "}}" }}
                   {{- end }}
                   - repoURL: ${{ "{{" }} vars.gitRepo {{ "}}" }}
                     desiredRevision: ${{ "{{" }} outputs.commit.commit {{ "}}" }}

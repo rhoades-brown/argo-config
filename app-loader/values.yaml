@@ -50,6 +50,9 @@ kargo:
       repoURL: ""
       name: ""
       semverConstraint: ""
+    gitSource:
+      repoURL: ""
+      semverConstraint: ""
   stage:
     imageUpdates: []
     #  - key: ollama.image.tag
