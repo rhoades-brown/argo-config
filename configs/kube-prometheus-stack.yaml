@@ -1,0 +1,36 @@
+name: kube-prometheus-stack
+namespace: kube-prometheus-stack
+
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: main
+
+chart:
+  repoURL: https://prometheus-community.github.io/helm-charts
+  name: kube-prometheus-stack
+  version: 82.4.0
+
+valuesFile: valuesfiles/kube-prometheus-stack.yaml
+
+managedNamespaceMetadata:
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/warn: privileged
+
+extraSyncOptions:
+  - ApplyOutOfSyncOnly=true
+  - ServerSideApply=true
+
+kargo:
+  enabled: true
+  project: kargo-kube-prometheus-stack
+  autoPromotionEnabled: true
+  warehouse:
+    images: []
+    chart:
+      repoURL: https://prometheus-community.github.io/helm-charts
+      name: kube-prometheus-stack
+      semverConstraint: ">=82.0.0"
+  stage:
+    imageUpdates: []
+
