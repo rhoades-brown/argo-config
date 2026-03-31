@@ -36,6 +36,9 @@ managedNamespaceMetadata: {}
 # -- Optional extra syncOptions beyond CreateNamespace=true
 extraSyncOptions: []
 
+# -- Optional ignoreDifferences for the Application
+ignoreDifferences: []
+
 # -- Kargo delivery pipeline
 kargo:
   enabled: false

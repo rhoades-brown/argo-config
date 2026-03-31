@@ -48,6 +48,10 @@ spec:
       targetRevision: {{ .Values.targetRevision }}
       path: {{ .Values.manifestsPath }}
     {{- end }}
+  {{- with .Values.ignoreDifferences }}
+  ignoreDifferences:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   syncPolicy:
     {{- with .Values.managedNamespaceMetadata }}
     managedNamespaceMetadata:
