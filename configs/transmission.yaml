@@ -12,7 +12,7 @@ kargo:
   autoPromotionEnabled: true
   warehouse:
     images:
-      - repoURL: lscr.io/linuxserver/transmission
+      - repoURL: linuxserver/transmission
         tagSelectionStrategy: Lexicographic
         allowTags: "^version-.*"
     chart:
@@ -21,7 +21,7 @@ kargo:
   stage:
     imageUpdates:
       - key: spec.template.spec.containers[0].image
-        image: lscr.io/linuxserver/transmission
+        image: linuxserver/transmission
         file: manifests/transmission/deployment.yaml
         useFullImage: true
 
