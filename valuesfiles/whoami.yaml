@@ -1,0 +1,17 @@
+image:
+  tag: v1.5.0
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  hosts:
+    - host: whoami.services.rhoades-brown.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - hosts:
+      - whoami.services.rhoades-brown.local
+

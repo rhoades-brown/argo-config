@@ -28,12 +28,13 @@ spec:
     - repoURL: {{ .Values.gitRepo }}
       targetRevision: {{ .Values.targetRevision }}
       path: {{ .Values.helmPath }}
-      {{- if .Values.valuesObject }}
+      {{- if .Values.valuesFile }}
       helm:
-        valuesObject: {{- toYaml .Values.valuesObject | nindent 10 }}
+        valueFiles:
+          - $values/{{ .Values.valuesFile }}
       {{- end }}
     {{- end }}
-    {{- if and .Values.valuesFile .Values.chart.repoURL }}
+    {{- if .Values.valuesFile }}
     - repoURL: {{ .Values.gitRepo }}
       targetRevision: {{ .Values.targetRevision }}
       ref: values
