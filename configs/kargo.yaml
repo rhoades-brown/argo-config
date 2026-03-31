@@ -1,0 +1,27 @@
+name: kargo
+namespace: kargo
+
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: main
+
+chart:
+  repoURL: ghcr.io/akuity/kargo-charts
+  name: kargo
+  version: 1.9.5
+
+valuesFile: valuesfiles/kargo.yaml
+manifestsPath: manifests/kargo
+
+kargo:
+  enabled: true
+  project: kargo-kargo
+  autoPromotionEnabled: true
+  warehouse:
+    images: []
+    chart:
+      repoURL: ghcr.io/akuity/kargo-charts
+      name: kargo
+      semverConstraint: ">=1.9.0"
+  stage:
+    imageUpdates: []
+

@@ -1,0 +1,33 @@
+name: democratic-csi
+namespace: democratic-csi
+
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: main
+
+chart:
+  repoURL: https://democratic-csi.github.io/charts/
+  name: democratic-csi
+  version: 0.15.1
+
+valuesFile: valuesfiles/democratic-csi.yaml
+manifestsPath: manifests/democratic-csi
+
+managedNamespaceMetadata:
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/warn: privileged
+
+kargo:
+  enabled: true
+  project: kargo-democratic-csi
+  autoPromotionEnabled: true
+  warehouse:
+    images: []
+    chart:
+      repoURL: https://democratic-csi.github.io/charts/
+      name: democratic-csi
+      semverConstraint: ">=0.15.0"
+  stage:
+    imageUpdates: []
+
