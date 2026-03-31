@@ -16,11 +16,17 @@ kargo:
   project: kargo-stirling-pdf
   autoPromotionEnabled: true
   warehouse:
-    images: []
+    images:
+      - repoURL: docker.stirlingpdf.com/stirlingtools/stirling-pdf
+        tagSelectionStrategy: SemVer
+        allowTags: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
     chart:
       repoURL: https://stirling-tools.github.io/Stirling-PDF-chart
       name: stirling-pdf-chart
       semverConstraint: ">=3.0.0"
   stage:
-    imageUpdates: []
+    imageUpdates:
+      - key: image.tag
+        image: docker.stirlingpdf.com/stirlingtools/stirling-pdf
+        file: valuesfiles/pdf.yaml
 
