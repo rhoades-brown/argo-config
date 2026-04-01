@@ -7,7 +7,7 @@ targetRevision: main
 chart:
   repoURL: https://cloudnative-pg.github.io/charts
   name: cloudnative-pg
-  version: 0.27.1
+  version: 0.28.0
 
 extraSyncOptions:
   - ServerSideApply=true
