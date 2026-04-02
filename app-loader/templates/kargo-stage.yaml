@@ -108,24 +108,24 @@ spec:
             insecureSkipTLSVerify: true
             body: '{"metadata":{"annotations":{"argocd.argoproj.io/application-set-refresh":"true"}}}'
             successExpression: response.status == 200
-        - uses: argocd-update
-          config:
-            apps:
-              - name: {{ .Values.name }}
-                namespace: argocd
-                sources:
-                  {{- if .Values.kargo.warehouse.chart.repoURL }}
-                  - repoURL: {{ .Values.chart.repoURL }}
-                    chart: {{ .Values.chart.name }}
-                    desiredRevision: ${{ "{{" }} chartFrom({{ .Values.kargo.warehouse.chart.repoURL | quote }}, {{ .Values.kargo.warehouse.chart.name | default .Values.chart.name | quote }}).Version {{ "}}" }}
-                  {{- end }}
-                  {{- if .Values.kargo.warehouse.gitSource.repoURL }}
-                  - repoURL: {{ .Values.gitSource.repoURL }}
-                    desiredRevision: ${{ "{{" }} commitFrom({{ .Values.kargo.warehouse.gitSource.repoURL | quote }}).Tag {{ "}}" }}
-                  {{- end }}
-                  {{- if or .Values.helmPath .Values.valuesFile .Values.manifestsPath .Values.chart.repoURL }}
-                  - repoURL: ${{ "{{" }} vars.gitRepo {{ "}}" }}
-                    desiredRevision: ${{ "{{" }} vars.tagName {{ "}}" }}
-                  {{- end }}
+ #       - uses: argocd-update
+ #         config:
+ #           apps:
+ #             - name: {{ .Values.name }}
+ #               namespace: argocd
+ #               sources:
+ #                 {{- if .Values.kargo.warehouse.chart.repoURL }}
+ #                 - repoURL: {{ .Values.chart.repoURL }}
+ #                   chart: {{ .Values.chart.name }}
+ #                   desiredRevision: ${{ "{{" }} chartFrom({{ .Values.kargo.warehouse.chart.repoURL | quote }}, {{ .Values.kargo.warehouse.chart.name | default .Values.chart.name | quote }}).Version {{ "}}" }}
+ #                 {{- end }}
+ #                 {{- if .Values.kargo.warehouse.gitSource.repoURL }}
+ #                 - repoURL: {{ .Values.gitSource.repoURL }}
+ #                   desiredRevision: ${{ "{{" }} commitFrom({{ .Values.kargo.warehouse.gitSource.repoURL | quote }}).Tag {{ "}}" }}
+ #                 {{- end }}
+ #                 {{- if or .Values.helmPath .Values.valuesFile .Values.manifestsPath .Values.chart.repoURL }}
+ #                 - repoURL: ${{ "{{" }} vars.gitRepo {{ "}}" }}
+ #                   desiredRevision: ${{ "{{" }} vars.tagName {{ "}}" }}
+ #                 {{- end }}
 {{- end }}
 
