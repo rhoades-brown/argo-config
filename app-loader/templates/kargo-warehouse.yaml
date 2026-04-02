@@ -18,11 +18,10 @@ spec:
     - git:
         repoURL: {{ .Values.gitRepo }}
         branch: {{ .Values.targetRevision }}
+        {{- if .Values.valuesFile }}
         includePaths:
-          {{- if .Values.valuesFile }}
           - {{ .Values.valuesFile }}
-          {{- end }}
-          - configs/{{ .Values.name }}.yaml
+        {{- end }}
     {{- if .Values.kargo.warehouse.chart.repoURL }}
     - chart:
         repoURL: {{ .Values.kargo.warehouse.chart.repoURL }}
