@@ -6,6 +6,8 @@ paperless:
     PAPERLESS_TIME_ZONE: "Europe/London"
     PAPERLESS_OCR_LANGUAGE: "eng"
     PAPERLESS_TIKA_ENABLED: "1"
+    PAPERLESS_CSRF_TRUSTED_ORIGINS: "https://paperless.tailc14988.ts.net,https://paperless.services.rhoades-brown.local"
+    PAPERLESS_URL: "https://paperless.tailc14988.ts.net"
   storage:
     data:
       size: 10Gi
