@@ -81,10 +81,10 @@ spec:
           config:
             path: ./src
         - uses: http
-          as: create-release
+          as: create-tag
           config:
             method: POST
-            url: https://api.github.com/repos/rhoades-brown/argo-config/releases
+            url: https://api.github.com/repos/rhoades-brown/argo-config/git/refs
             headers:
               - name: Accept
                 value: application/vnd.github+json
@@ -92,12 +92,8 @@ spec:
                 value: Bearer ${{ "{{" }} sharedSecret("kargo-github-api-token").token {{ "}}" }}
             body: |
               ${{ "{{" }} quote({
-                "tag_name": vars.tagName,
-                "target_commitish": outputs.commit.commit,
-                "name": ctx.project + " promotion " + ctx.promotion,
-                "body": outputs.commit.commitMessage ?? "",
-                "draft": false,
-                "prerelease": false
+                "ref": "refs/tags/" + vars.tagName,
+                "sha": outputs.commit.commit
               }) {{ "}}" }}
             successExpression: response.status == 201
         - uses: http
