@@ -1,0 +1,25 @@
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: kargo-github-api-token
+  namespace: kargo-shared-resources
+spec:
+  secretStoreRef:
+    name: pulumi-secret-store
+    kind: ClusterSecretStore
+  target:
+    name: kargo-github-api-token
+    creationPolicy: Owner
+    template:
+      metadata:
+        labels:
+          kargo.akuity.io/cred-type: generic
+      type: Opaque
+      data:
+        token: "{{ .password }}"
+  data:
+    - secretKey: password
+      remoteRef:
+        key: repocreds.password
+
