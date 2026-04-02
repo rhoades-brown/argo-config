@@ -1,5 +1,5 @@
 image:
-  tag: 2.8.0
+  tag: 2.9.0
 serviceMonitor:
   enabled: true
 persistence:
