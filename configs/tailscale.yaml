@@ -2,7 +2,7 @@ name: tailscale
 namespace: tailscale
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-tailscale-prod.01kn7zbq3dm983qmjbe8gvb0gc.fd874f5
+targetRevision: kargo-tailscale-prod.01kn7zhr889q6a3b6tnpbd6pm5.e991a43
 
 chart:
   repoURL: https://pkgs.tailscale.com/helmcharts
