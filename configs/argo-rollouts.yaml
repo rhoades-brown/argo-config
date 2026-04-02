@@ -2,7 +2,7 @@ name: argo-rollouts
 namespace: argo-rollouts
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-argo-rollouts-prod.01kn88phskvca2djnd20gew0cn.b0cd1ea
+targetRevision: kargo-argo-rollouts-prod.01kn890b9r85xrzjf279fa8sec.39e28f1
 
 chart:
   repoURL: https://argoproj.github.io/argo-helm
