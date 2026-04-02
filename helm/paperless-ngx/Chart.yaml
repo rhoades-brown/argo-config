@@ -1,0 +1,15 @@
+apiVersion: v2
+name: paperless-ngx
+description: A Helm chart for Paperless-ngx with CNPG PostgreSQL, Redis, Gotenberg and Tika
+type: application
+version: 0.1.0
+appVersion: "latest"
+
+dependencies:
+  - name: redis
+    version: 21.1.5
+    repository: oci://registry-1.docker.io/bitnamicharts
+  - name: tika
+    version: 2.9.0
+    repository: https://apache.jfrog.io/artifactory/tika
+

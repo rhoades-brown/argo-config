@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-paperless
+  labels:
+    app.kubernetes.io/name: paperless
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: paperless
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: paperless
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: paperless
+          image: "{{ .Values.paperless.image.repository }}:{{ .Values.paperless.image.tag }}"
+          ports:
+            - name: http
+              containerPort: 8000
+          env:
+            - name: PAPERLESS_REDIS
+              value: "redis://{{ .Release.Name }}-redis-master:6379"
+            - name: PAPERLESS_DBENGINE
+              value: "postgresql"
+            - name: PAPERLESS_DBHOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-cluster-app
+                  key: host
+            - name: PAPERLESS_DBNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-cluster-app
+                  key: dbname
+            - name: PAPERLESS_DBUSER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-cluster-app
+                  key: username
+            - name: PAPERLESS_DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-cluster-app
+                  key: password
+            - name: PAPERLESS_TIKA_ENABLED
+              value: "{{ .Values.paperless.env.PAPERLESS_TIKA_ENABLED }}"
+            - name: PAPERLESS_TIKA_GOTENBERG_ENDPOINT
+              value: "http://{{ .Release.Name }}-gotenberg:3000"
+            - name: PAPERLESS_TIKA_ENDPOINT
+              value: "http://{{ .Release.Name }}-tika:9998"
+            {{- range $key, $val := .Values.paperless.env }}
+            {{- if not (has $key (list "PAPERLESS_TIKA_ENABLED")) }}
+            - name: {{ $key }}
+              value: "{{ $val }}"
+            {{- end }}
+            {{- end }}
+          volumeMounts:
+            - name: data
+              mountPath: /usr/src/paperless/data
+            - name: media
+              mountPath: /usr/src/paperless/media
+            - name: export
+              mountPath: /usr/src/paperless/export
+            - name: consume
+              mountPath: /usr/src/paperless/consume
+          resources:
+            requests:
+              cpu: 200m
+              memory: 512Mi
+            limits:
+              cpu: "2"
+              memory: 2Gi
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-data
+        - name: media
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-media
+        - name: export
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-export
+        - name: consume
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-consume
+

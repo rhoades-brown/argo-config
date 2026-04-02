@@ -1,0 +1,49 @@
+paperless:
+  image:
+    repository: ghcr.io/paperless-ngx/paperless-ngx
+    tag: latest
+  env:
+    PAPERLESS_TIME_ZONE: "Europe/London"
+    PAPERLESS_OCR_LANGUAGE: "eng"
+    PAPERLESS_TIKA_ENABLED: "1"
+  storage:
+    data:
+      size: 10Gi
+    media:
+      size: 10Gi
+    export:
+      size: 5Gi
+    consume:
+      size: 5Gi
+
+cnpg:
+  instances: 1
+  storage:
+    size: 8Gi
+
+gotenberg:
+  image:
+    repository: docker.io/gotenberg/gotenberg
+    tag: "8.25"
+
+ingress:
+  nginx:
+    enabled: true
+    host: paperless.services.rhoades-brown.local
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+  tailscale:
+    enabled: true
+    hostname: paperless
+
+redis:
+  architecture: standalone
+  auth:
+    enabled: false
+  master:
+    persistence:
+      enabled: false
+
+tika: {}
+

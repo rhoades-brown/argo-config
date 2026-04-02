@@ -1,0 +1,26 @@
+name: paperless-ngx
+namespace: paperless-ngx
+
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: main
+
+helmPath: helm/paperless-ngx
+
+kargo:
+  enabled: true
+  project: kargo-paperless-ngx
+  autoPromotionEnabled: true
+  warehouse:
+    images:
+      - repoURL: ghcr.io/paperless-ngx/paperless-ngx
+        tagSelectionStrategy: SemVer
+        allowTags: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    chart:
+      repoURL: ""
+      semverConstraint: ""
+  stage:
+    imageUpdates:
+      - key: paperless.image.tag
+        image: ghcr.io/paperless-ngx/paperless-ngx
+        file: helm/paperless-ngx/values.yaml
+

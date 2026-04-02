@@ -1,0 +1,30 @@
+{{- if .Values.ingress.nginx.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-paperless
+  labels:
+    app.kubernetes.io/name: paperless
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  {{- with .Values.ingress.nginx.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: {{ .Values.ingress.nginx.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Release.Name }}-paperless
+                port:
+                  number: 8000
+  tls:
+    - hosts:
+        - {{ .Values.ingress.nginx.host }}
+{{- end }}
+

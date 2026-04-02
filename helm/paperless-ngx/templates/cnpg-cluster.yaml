@@ -1,0 +1,16 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: {{ .Release.Name }}-cluster
+spec:
+  instances: {{ .Values.cnpg.instances }}
+  enableSuperuserAccess: true
+
+  storage:
+    size: {{ .Values.cnpg.storage.size }}
+
+  bootstrap:
+    initdb:
+      database: paperless
+      owner: paperless
+
