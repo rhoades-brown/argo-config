@@ -11,10 +11,20 @@ kargo:
   project: kargo-paperless-ngx
   autoPromotionEnabled: true
   warehouse:
+    interval: 1h0m0s
     images:
       - repoURL: ghcr.io/paperless-ngx/paperless-ngx
         tagSelectionStrategy: SemVer
         allowTags: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+      - repoURL: docker.io/gotenberg/gotenberg
+        tagSelectionStrategy: SemVer
+        allowTags: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+      - repoURL: docker.io/bitnami/redis
+        tagSelectionStrategy: SemVer
+        allowTags: "^[0-9]+\\.[0-9]+\\.[0-9]+-debian-[0-9]+-r[0-9]+$"
+      - repoURL: docker.io/apache/tika
+        tagSelectionStrategy: SemVer
+        allowTags: "^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$"
     chart:
       repoURL: ""
       semverConstraint: ""
@@ -22,5 +32,14 @@ kargo:
     imageUpdates:
       - key: paperless.image.tag
         image: ghcr.io/paperless-ngx/paperless-ngx
+        file: helm/paperless-ngx/values.yaml
+      - key: gotenberg.image.tag
+        image: docker.io/gotenberg/gotenberg
+        file: helm/paperless-ngx/values.yaml
+      - key: redis.image.tag
+        image: docker.io/bitnami/redis
+        file: helm/paperless-ngx/values.yaml
+      - key: tika.image.tag
+        image: docker.io/apache/tika
         file: helm/paperless-ngx/values.yaml
 
