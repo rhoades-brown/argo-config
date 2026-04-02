@@ -69,8 +69,22 @@ spec:
               ${{ "{{" }} outputs['update-git-source'].commitMessage {{ "}}" }}
               {{- end }}
         - uses: git-push
+          as: push
           config:
             path: ./src
+            generateTargetBranch: true
+        - uses: git-open-pr
+          as: open-pr
+          config:
+            repoURL: ${{ "{{" }} vars.gitRepo {{ "}}" }}
+            sourceBranch: ${{ "{{" }} outputs.push.branch {{ "}}" }}
+            targetBranch: {{ .Values.targetRevision }}
+        - uses: git-merge-pr
+          as: merge-pr
+          config:
+            repoURL: ${{ "{{" }} vars.gitRepo {{ "}}" }}
+            prNumber: ${{ "{{" }} outputs['open-pr'].pr.id {{ "}}" }}
+            wait: true
         - uses: http
           config:
             method: PATCH
@@ -100,7 +114,7 @@ spec:
                   {{- end }}
                   {{- if or .Values.helmPath .Values.valuesFile .Values.manifestsPath .Values.chart.repoURL }}
                   - repoURL: ${{ "{{" }} vars.gitRepo {{ "}}" }}
-                    desiredRevision: ${{ "{{" }} outputs.commit.commit {{ "}}" }}
+                    desiredRevision: ${{ "{{" }} outputs['merge-pr'].commit {{ "}}" }}
                   {{- end }}
 {{- end }}
 
