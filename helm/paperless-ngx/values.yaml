@@ -41,6 +41,8 @@ redis:
   architecture: standalone
   auth:
     enabled: false
+  image:
+    tag: latest
   master:
     persistence:
       enabled: false
