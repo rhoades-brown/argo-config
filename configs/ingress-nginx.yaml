@@ -2,7 +2,7 @@ name: ingress-nginx
 namespace: ingress-nginx
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: main
+targetRevision: kargo-ingress-nginx-prod.01kn7z3yvmgth12jhnyeeaf166.18ec4dd
 
 chart:
   repoURL: https://kubernetes.github.io/ingress-nginx
