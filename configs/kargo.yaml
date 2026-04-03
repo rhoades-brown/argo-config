@@ -2,7 +2,7 @@ name: kargo
 namespace: kargo
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: main
+targetRevision: kargo-kargo-prod.01kn92xbveq3rg2nnpw4b1ysfp.50a2fd6
 
 chart:
   repoURL: oci://ghcr.io/akuity/kargo-charts/kargo
