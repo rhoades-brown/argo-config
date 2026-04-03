@@ -2,7 +2,7 @@ name: cloudnative-postgres-operator
 namespace: cnpg-system
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-cloudnative-postgres-operator-prod.01kn9wvzd0qyeapwpjvq9ah1ev.6608609
+targetRevision: kargo-cloudnative-postgres-operator-prod.01kn9xe9c559bsg6mrtsd75xer.e72b779
 
 chart:
   repoURL: https://cloudnative-pg.github.io/charts
