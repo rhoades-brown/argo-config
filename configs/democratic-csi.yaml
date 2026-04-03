@@ -2,7 +2,7 @@ name: democratic-csi
 namespace: democratic-csi
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-democratic-csi-prod.01kn7z3053mp0yf0kaqg5pcd5r.8ffd7d3
+targetRevision: kargo-democratic-csi-prod.01kn92yy0sew0e3de1cp1g2ts5.8ffd7d3
 
 chart:
   repoURL: https://democratic-csi.github.io/charts/
