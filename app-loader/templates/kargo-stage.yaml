@@ -45,7 +45,11 @@ spec:
             path: ./src/configs/{{ .Values.name }}.yaml
             updates:
               - key: chart.version
-                value: ${{ "{{" }} chartFrom({{ .Values.kargo.warehouse.chart.repoURL | quote }}, {{ .Values.kargo.warehouse.chart.name | default .Values.chart.name | quote }}).Version {{ "}}" }}
+                {{- if .Values.kargo.warehouse.chart.name }}
+                value: ${{ "{{" }} chartFrom({{ .Values.kargo.warehouse.chart.repoURL | quote }}, {{ .Values.kargo.warehouse.chart.name | quote }}).Version {{ "}}" }}
+                {{- else }}
+                value: ${{ "{{" }} chartFrom({{ .Values.kargo.warehouse.chart.repoURL | quote }}).Version {{ "}}" }}
+                {{- end }}
         {{- end }}
         {{- if .Values.kargo.warehouse.gitSource.repoURL }}
         - uses: yaml-update
