@@ -20,10 +20,10 @@ kargo:
         tagSelectionStrategy: SemVer
         allowTags: "^[0-9]+\\.[0-9]+\\.[0-9]+$"
       - repoURL: docker.io/bitnami/redis
-        tagSelectionStrategy: SemVer
+#        tagSelectionStrategy: SemVer
       - repoURL: docker.io/apache/tika
-        tagSelectionStrategy: SemVer
-        allowTags: "^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$"
+#        tagSelectionStrategy: SemVer
+#        allowTags: "^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$"
     chart:
       repoURL: ""
       semverConstraint: ""
