@@ -49,5 +49,7 @@ redis:
     persistence:
       enabled: false
 
-tika: {}
+tika:
+  image:
+    tag: latest
 
