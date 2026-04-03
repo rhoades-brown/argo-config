@@ -17,7 +17,7 @@ spec:
     {{- end }}
     - git:
         repoURL: {{ .Values.gitRepo }}
-        branch: {{ .Values.targetRevision }}
+        branch: main
         {{- if .Values.valuesFile }}
         includePaths:
           - {{ .Values.valuesFile }}
