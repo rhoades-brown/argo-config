@@ -2,7 +2,7 @@ name: cilium
 namespace: kube-system
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: main
+targetRevision: kargo-cilium-prod.01kn92y7845j8xgcqwnkd82g5y.17a2580
 
 chart:
   repoURL: https://helm.cilium.io/
