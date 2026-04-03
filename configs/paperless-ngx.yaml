@@ -23,8 +23,8 @@ kargo:
         imageSelectionStrategy: Digest
         constraint: latest
       - repoURL: docker.io/apache/tika
-        tagSelectionStrategy: SemVer
-        allowTags: "^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$"
+        imageSelectionStrategy: Digest
+        constraint: latest
     chart:
       repoURL: ""
       semverConstraint: ""
