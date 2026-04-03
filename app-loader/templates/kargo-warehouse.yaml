@@ -10,9 +10,16 @@ spec:
     {{- range .Values.kargo.warehouse.images }}
     - image:
         repoURL: {{ .repoURL }}
+        {{- if .imageSelectionStrategy }}
+        imageSelectionStrategy: {{ .imageSelectionStrategy }}
+        {{- if .constraint }}
+        constraint: {{ .constraint }}
+        {{- end }}
+        {{- else }}
         tagSelectionStrategy: {{ .tagSelectionStrategy | default "SemVer" }}
         {{- if .allowTags }}
         allowTags: {{ .allowTags }}
+        {{- end }}
         {{- end }}
     {{- end }}
     - git:
