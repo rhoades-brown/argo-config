@@ -2,7 +2,7 @@ name: external-snapshotter
 namespace: kube-system
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-external-snapshotter-prod.01knbq2dhbd853c39n8pm0tpc5.efb150b
+targetRevision: kargo-external-snapshotter-prod.01knbqmy7bbrm1z7yvnfdnkd30.58b1030
 
 gitSource:
   repoURL: https://github.com/kubernetes-csi/external-snapshotter.git
