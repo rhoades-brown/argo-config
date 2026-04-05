@@ -1,5 +1,5 @@
 image:
-  tag: 10.11.7
+  tag: 10.11.8
 deploymentStrategy:
   type: Recreate
 volumes:
