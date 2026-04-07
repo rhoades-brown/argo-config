@@ -22,6 +22,7 @@ spec:
         {{- end }}
         {{- end }}
     {{- end }}
+    {{- if or .Values.valuesFile .Values.kargo.warehouse.images }}
     - git:
         repoURL: {{ .Values.gitRepo }}
         branch: main
@@ -29,6 +30,7 @@ spec:
         includePaths:
           - {{ .Values.valuesFile }}
         {{- end }}
+    {{- end }}
     {{- if .Values.kargo.warehouse.chart.repoURL }}
     - chart:
         repoURL: {{ .Values.kargo.warehouse.chart.repoURL }}

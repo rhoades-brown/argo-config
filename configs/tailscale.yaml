@@ -26,7 +26,7 @@ kargo:
     chart:
       repoURL: https://pkgs.tailscale.com/helmcharts
       name: tailscale-operator
-      semverConstraint: ">=1.90.0"
+      semverConstraint: "~1.94"
   stage:
     imageUpdates: []
 
