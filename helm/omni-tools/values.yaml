@@ -11,12 +11,12 @@ service:
 
 ingress:
   nginx:
-    enabled: false
+    enabled: true
     host: omni-tools.services.rhoades-brown.local
     annotations:
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   tailscale:
-    enabled: false
+    enabled: true
     hostname: omni-tools
 
 resources: {}
