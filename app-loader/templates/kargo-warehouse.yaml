@@ -22,13 +22,18 @@ spec:
         {{- end }}
         {{- end }}
     {{- end }}
-    {{- if or .Values.valuesFile .Values.kargo.warehouse.images }}
+    {{- if or .Values.valuesFile .Values.kargo.warehouse.images .Values.manifestsPath }}
     - git:
         repoURL: {{ .Values.gitRepo }}
         branch: main
-        {{- if .Values.valuesFile }}
+        {{- if or .Values.valuesFile .Values.manifestsPath }}
         includePaths:
+          {{- if .Values.valuesFile }}
           - {{ .Values.valuesFile }}
+          {{- end }}
+          {{- if .Values.manifestsPath }}
+          - {{ .Values.manifestsPath }}
+          {{- end }}
         {{- end }}
     {{- end }}
     {{- if .Values.kargo.warehouse.chart.repoURL }}
