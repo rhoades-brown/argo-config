@@ -1,0 +1,26 @@
+name: omni-tools
+namespace: omni-tools
+
+gitRepo: https://github.com/rhoades-brown/argo-config.git
+targetRevision: main
+
+helmPath: helm/omni-tools
+
+kargo:
+  enabled: true
+  project: kargo-omni-tools
+  autoPromotionEnabled: true
+  warehouse:
+    interval: 1h0m0s
+    images:
+      - repoURL: docker.io/iib0011/omni-tools
+        imageSelectionStrategy: Digest
+        constraint: latest
+    chart:
+      repoURL: ""
+      semverConstraint: ""
+  stage:
+    imageUpdates:
+      - key: image.tag
+        image: docker.io/iib0011/omni-tools
+        file: helm/omni-tools/values.yaml

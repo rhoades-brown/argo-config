@@ -1,0 +1,26 @@
+image:
+  repository: iib0011/omni-tools
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  nginx:
+    enabled: false
+    host: omni-tools.services.rhoades-brown.local
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  tailscale:
+    enabled: false
+    hostname: omni-tools
+
+resources: {}
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
