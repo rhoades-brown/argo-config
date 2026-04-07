@@ -13,7 +13,7 @@ config:
       passwordKey: "password"
 
   redis:
-    host: "penpot-redis-master.penpot.svc.cluster.local"
+    host: ""
     port: 6379
     database: "0"
 
