@@ -23,8 +23,6 @@ config:
 ingress:
   enabled: true
   className: tailscale
-  hosts:
-    - penpot
   tls:
     - hosts:
         - penpot
