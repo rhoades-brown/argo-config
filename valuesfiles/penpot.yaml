@@ -4,7 +4,7 @@ config:
   telemetryEnabled: false
 
   postgresql:
-    host: ""
+    host: "penpot-cluster-rw"
     port: 5432
     username: "penpot"
     database: "penpot"
