@@ -10,6 +10,7 @@ chart:
   version: 0.38.0
 
 valuesFile: valuesfiles/penpot.yaml
+manifestsPath: manifests/penpot
 
 kargo:
   enabled: true
