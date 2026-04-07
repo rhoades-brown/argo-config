@@ -22,10 +22,14 @@ config:
 
 ingress:
   enabled: true
-  className: tailscale
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  hosts:
+    - penpot.services.rhoades-brown.local
   tls:
     - hosts:
-        - penpot
+        - penpot.services.rhoades-brown.local
 
 persistence:
   assets:
