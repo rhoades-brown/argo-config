@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: penpot-redis
+  namespace: penpot
+  labels:
+    app.kubernetes.io/name: redis
+    app.kubernetes.io/instance: penpot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: redis
+      app.kubernetes.io/instance: penpot
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: redis
+        app.kubernetes.io/instance: penpot
+    spec:
+      containers:
+        - name: redis
+          image: docker.io/bitnami/redis:latest
+          env:
+            - name: ALLOW_EMPTY_PASSWORD
+              value: "yes"
+          ports:
+            - name: redis
+              containerPort: 6379
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: penpot-redis-master
+  namespace: penpot
+  labels:
+    app.kubernetes.io/name: redis
+    app.kubernetes.io/instance: penpot
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: redis
+    app.kubernetes.io/instance: penpot
+  ports:
+    - name: redis
+      port: 6379
+      targetPort: redis
