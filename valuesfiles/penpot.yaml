@@ -1,3 +1,6 @@
+global:
+    redisEnabled: true
+
 config:
   publicUri: "https://penpot.tailc14988.ts.net"
   flags: "enable-registration enable-login-with-password disable-email-verification disable-secure-session-cookies"
@@ -11,11 +14,6 @@ config:
     existingSecret: "penpot-cluster-app"
     secretKeys:
       passwordKey: "password"
-
-  redis:
-    host: ""
-    port: 6379
-    database: "0"
 
   objectsStorage:
     storageBackend: "fs"
