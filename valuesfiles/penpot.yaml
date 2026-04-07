@@ -21,7 +21,7 @@ config:
       directory: "/opt/data/assets"
 
 ingress:
-  enabled: false
+  enabled: true
   className: tailscale
   hosts:
     - penpot
