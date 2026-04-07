@@ -12,7 +12,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: penpot-penpot
+                name: penpot
                 port:
                   number: 8080
   tls:
