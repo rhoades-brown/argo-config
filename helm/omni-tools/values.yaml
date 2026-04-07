@@ -1,7 +1,7 @@
 image:
   repository: iib0011/omni-tools
   pullPolicy: IfNotPresent
-  tag: "latest"
+  tag: latest
 
 replicaCount: 1
 
