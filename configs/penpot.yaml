@@ -2,7 +2,7 @@ name: penpot
 namespace: penpot
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-penpot-prod.01knkx0hq84ac178yaaf42tcfq.e838cc3
+targetRevision: kargo-penpot-prod.01knkx55394vpt624dprhmtkfy.15f873c
 
 chart:
   repoURL: http://helm.penpot.app
