@@ -1,7 +1,7 @@
 ollama:
   enabled: true
   image:
-    tag: 0.20.4
+    tag: 0.20.5
     pullPolicy: Always
   ollama:
     gpu:
