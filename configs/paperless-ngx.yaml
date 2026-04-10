@@ -2,7 +2,7 @@ name: paperless-ngx
 namespace: paperless-ngx
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-paperless-ngx-prod.01kntp577ky6314q76dw2mf22a.5150516
+targetRevision: kargo-paperless-ngx-prod.01kntsm4sfg07hd708z5xa75b1.51c11e1
 
 helmPath: helm/paperless-ngx
 
