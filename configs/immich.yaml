@@ -2,7 +2,7 @@ name: immich
 namespace: immich
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-immich-prod.01kp3ntjxejn8p5j9f486mv3y2.c6d8dcf
+targetRevision: kargo-immich-prod.01kp3pdhcekd3gx0n7xv9d3138.d78f340
 
 chart:
   repoURL: https://immich-app.github.io/immich-charts
