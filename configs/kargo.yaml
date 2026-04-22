@@ -2,12 +2,12 @@ name: kargo
 namespace: kargo
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-kargo-prod.01kps1frfsnyfbx69gk0vsf9eh.392366a
+targetRevision: kargo-kargo-prod.01kpv0w0thv0ntkht3pqj89x9n.29790fd
 
 chart:
   repoURL: oci://ghcr.io/akuity/kargo-charts/kargo
   name: kargo
-  version: 1.10.1
+  version: 1.10.2
 
 valuesFile: valuesfiles/kargo.yaml
 manifestsPath: manifests/kargo
