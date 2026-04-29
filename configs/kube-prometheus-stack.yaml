@@ -2,12 +2,12 @@ name: kube-prometheus-stack
 namespace: kube-prometheus-stack
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-kube-prometheus-stack-prod.01kq84j2pcpy65daxagen63mw6.65e5a57
+targetRevision: kargo-kube-prometheus-stack-prod.01kqd7yg5gdk8jnm5mb4rahffc.28fc89f
 
 chart:
   repoURL: https://prometheus-community.github.io/helm-charts
   name: kube-prometheus-stack
-  version: 84.3.0
+  version: 84.4.0
 
 valuesFile: valuesfiles/kube-prometheus-stack.yaml
 
