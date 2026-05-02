@@ -10,6 +10,7 @@ chart:
   version: 14.2.0
 
 valuesFile: valuesfiles/open-webui.yaml
+manifestsPath: manifests/open-webui
 
 kargo:
   enabled: true
