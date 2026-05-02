@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: open-webui-tailscale
+spec:
+  ingressClassName: tailscale
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: open-webui
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+
+  tls:
+    - hosts:
+        - open-webui
+
