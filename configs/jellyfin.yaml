@@ -2,7 +2,7 @@ name: jellyfin
 namespace: jellyfin
 
 gitRepo: https://github.com/rhoades-brown/argo-config.git
-targetRevision: kargo-jellyfin-prod.01ks49w7p1byyazhabsya07h3z.f77e4af
+targetRevision: kargo-jellyfin-prod.01kse26hxm3gkpz4b0xwpb2qns.82a7ec2
 
 chart:
   repoURL: https://jellyfin.github.io/jellyfin-helm
