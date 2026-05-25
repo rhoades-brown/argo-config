@@ -46,7 +46,7 @@ spec:
     {{- end }}
     {{- if or .Values.valuesFile .Values.manifestsPath }}
     - repoURL: {{ .Values.gitRepo }}
-      targetRevision: {{ .Values.targetRevision }}
+      targetRevision: main
       {{- if .Values.valuesFile }}
       ref: values
       {{- end }}

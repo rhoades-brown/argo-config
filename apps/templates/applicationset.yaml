@@ -10,8 +10,8 @@ spec:
     - "missingkey=error"
   generators:
     - git:
-        repoURL: https://github.com/rhoades-brown/argo-config.git
-        revision: {{ .Values.targetRevision }}
+        repoURL: https://github.com/rhoades-brown/kargo-config.git
+        revision: main
         files:
           - path: "configs/*.yaml"
   template:
@@ -31,8 +31,8 @@ spec:
           helm:
             valueFiles:
               - $values/configs/{{ "{{.name}}" }}.yaml
-        - repoURL: https://github.com/rhoades-brown/argo-config.git
-          targetRevision: {{ .Values.targetRevision }}
+        - repoURL: https://github.com/rhoades-brown/kargo-config.git
+          targetRevision: main
           ref: values
       syncPolicy:
         automated:
