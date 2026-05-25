@@ -12,7 +12,7 @@ volumes:
   - name: other
     nfs:
       server: truenas.rhoades-brown.local
-      path: /mnt/RustyPool/Other
+      path: /mnt/RustyPool/pn
 
 volumeMounts:
   - name: music
