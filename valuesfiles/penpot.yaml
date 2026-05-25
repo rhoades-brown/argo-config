@@ -1,6 +1,28 @@
 global:
     redisEnabled: true
 
+backend:
+  updateStrategy:
+    type: Recreate
+
+frontend:
+  updateStrategy:
+    type: Recreate
+  affinity:
+    podAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - topologyKey: kubernetes.io/hostname
+          labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/component
+                operator: In
+                values:
+                  - backend
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                  - penpot
+
 config:
   publicUri: "https://penpot.tailc14988.ts.net"
   flags: "enable-registration enable-login-with-password disable-email-verification disable-secure-session-cookies"
@@ -35,4 +57,6 @@ persistence:
   assets:
     enabled: true
     size: 10Gi
-    storageClass: ""
+    storageClass: freenas-nfs-csi
+    accessModes:
+      - ReadWriteMany
