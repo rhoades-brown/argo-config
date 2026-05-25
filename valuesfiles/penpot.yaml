@@ -13,15 +13,8 @@ frontend:
       requiredDuringSchedulingIgnoredDuringExecution:
         - topologyKey: kubernetes.io/hostname
           labelSelector:
-            matchExpressions:
-              - key: app.kubernetes.io/component
-                operator: In
-                values:
-                  - backend
-              - key: app.kubernetes.io/name
-                operator: In
-                values:
-                  - penpot
+            matchLabels:
+              app: penpot-backend
 
 config:
   publicUri: "https://penpot.tailc14988.ts.net"
