@@ -39,6 +39,9 @@ extraSyncOptions: []
 # -- Optional ignoreDifferences for the Application
 ignoreDifferences: []
 
+# -- Set to true to suppress the resources-finalizer on the Application (e.g. for ArgoCD self-management)
+noFinalizer: false
+
 # -- Kargo delivery pipeline (only enabled/project used here; full config in kargo-loader)
 kargo:
   enabled: false

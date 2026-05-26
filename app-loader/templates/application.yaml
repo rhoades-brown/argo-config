@@ -7,8 +7,10 @@ metadata:
     {{- if .Values.kargo.enabled }}
     kargo.akuity.io/authorized-stage: "{{ include "app-loader.kargoProject" . }}:prod"
     {{- end }}
+  {{- if not .Values.noFinalizer }}
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+  {{- end }}
 spec:
   project: default
   destination:

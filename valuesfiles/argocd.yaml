@@ -1,0 +1,24 @@
+global:
+  domain: argocd.services.rhoades-brown.local
+
+dex:
+  enabled: false
+
+server:
+  ingress:
+    enabled: true
+    tls: true
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+  extensions:
+    enabled: true
+    extensionList:
+      - name: rollout-extension
+        env:
+          - name: EXTENSION_URL
+            value: "https://github.com/argoproj-labs/rollout-extension/releases/download/v0.3.7/extension.tar"
+
+configs:
+  params:
+    server.insecure: "true"
