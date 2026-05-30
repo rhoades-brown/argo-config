@@ -1,0 +1,28 @@
+openNotebook:
+  image:
+    repository: lfnovo/open_notebook
+    tag: v1-latest
+  storage:
+    data:
+      size: 5Gi
+
+surrealdb:
+  image:
+    repository: surrealdb/surrealdb
+    tag: v2
+  storage:
+    size: 5Gi
+  database:
+    user: root
+    namespace: open_notebook
+    database: open_notebook
+
+ingress:
+  nginx:
+    enabled: true
+    host: open-notebook.services.rhoades-brown.local
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  tailscale:
+    enabled: true
+    hostname: open-notebook

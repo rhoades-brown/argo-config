@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app.kubernetes.io/name: open-notebook
+    {{- include "open-notebook.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: open-notebook
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: open-notebook
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: open-notebook
+          image: "{{ .Values.openNotebook.image.repository }}:{{ .Values.openNotebook.image.tag }}"
+          imagePullPolicy: Always
+          ports:
+            - name: ui
+              containerPort: 8502
+            - name: api
+              containerPort: 5055
+          env:
+            - name: SURREAL_URL
+              value: {{ include "open-notebook.surrealURL" . | quote }}
+            - name: SURREAL_USER
+              value: {{ .Values.surrealdb.database.user | quote }}
+            - name: SURREAL_NAMESPACE
+              value: {{ .Values.surrealdb.database.namespace | quote }}
+            - name: SURREAL_DATABASE
+              value: {{ .Values.surrealdb.database.database | quote }}
+            - name: SURREAL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-secret
+                  key: surrealPassword
+            - name: OPEN_NOTEBOOK_ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-secret
+                  key: encryptionKey
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
+          resources:
+            requests:
+              cpu: 100m
+              memory: 512Mi
+            limits:
+              cpu: "2"
+              memory: 2Gi
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-data
