@@ -16,13 +16,6 @@ spec:
     - host: {{ .Values.ingress.nginx.host }}
       http:
         paths:
-          - path: /api
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ .Release.Name }}
-                port:
-                  name: api
           - path: /
             pathType: Prefix
             backend:
