@@ -31,6 +31,8 @@ spec:
             - name: api
               containerPort: 5055
           env:
+            - name: API_URL
+              value: "https://{{ .Values.ingress.nginx.host }}"
             - name: SURREAL_URL
               value: {{ include "open-notebook.surrealURL" . | quote }}
             - name: SURREAL_USER
