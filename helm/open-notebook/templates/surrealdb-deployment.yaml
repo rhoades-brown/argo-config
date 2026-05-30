@@ -19,6 +19,8 @@ spec:
         app.kubernetes.io/name: surrealdb
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      imagePullSecrets:
+        - name: {{ .Release.Name }}-dockerhub
       securityContext:
         runAsUser: 0
       containers:

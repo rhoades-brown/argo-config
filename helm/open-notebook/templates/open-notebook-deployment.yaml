@@ -19,6 +19,8 @@ spec:
         app.kubernetes.io/name: open-notebook
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      imagePullSecrets:
+        - name: {{ .Release.Name }}-dockerhub
       containers:
         - name: open-notebook
           image: "{{ .Values.openNotebook.image.repository }}:{{ .Values.openNotebook.image.tag }}"
