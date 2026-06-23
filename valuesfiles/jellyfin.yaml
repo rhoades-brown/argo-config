@@ -2,6 +2,11 @@ image:
   tag: 10.11.11
 deploymentStrategy:
   type: Recreate
+
+podSecurityContext:
+  runAsUser: 3003
+  runAsGroup: 3000
+  fsGroup: 3000
 volumes:
   - name: music
     persistentVolumeClaim:
