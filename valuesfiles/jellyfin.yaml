@@ -1,5 +1,5 @@
 image:
-  tag: 10.11.11
+  tag: 10.11.10
 deploymentStrategy:
   type: Recreate
 
@@ -7,6 +7,7 @@ podSecurityContext:
   runAsUser: 3003
   runAsGroup: 3000
   fsGroup: 3000
+  fsGroupChangePolicy: OnRootMismatch
 volumes:
   - name: music
     persistentVolumeClaim:
