@@ -15,18 +15,24 @@ volumes:
   - name: videos
     persistentVolumeClaim:
       claimName: nfs-videos
-  - name: other
+  - name: pn
     nfs:
       server: truenas.rhoades-brown.local
       path: /mnt/RustyPool/pn
+  - name: yum
+    nfs:
+      server: truenas.rhoades-brown.local
+      path: /mnt/RustyPool/Yum
 
 volumeMounts:
   - name: music
     mountPath: "/media/music"
   - name: videos
     mountPath: "/media/videos"
-  - name: other
+  - name: pn
     mountPath: "/media/pn"
+  - name: yum
+    mountPath: "/media/yum"
 ingress:
   enabled: true
   className: ""
