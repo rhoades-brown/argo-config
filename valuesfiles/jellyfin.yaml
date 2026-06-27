@@ -26,7 +26,7 @@ volumeMounts:
   - name: videos
     mountPath: "/media/videos"
   - name: other
-    mountPath: "/media/other"
+    mountPath: "/media/pn"
 ingress:
   enabled: true
   className: ""
