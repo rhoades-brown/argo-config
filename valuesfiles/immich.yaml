@@ -1,13 +1,13 @@
 ---
 image:
-  tag: v3.0.1
+  tag: v3.0.2
 
 controllers:
   main:
     containers:
       main:
         image:
-          tag: v3.0.1
+          tag: v3.0.2
         env:
           DB_HOSTNAME:
             valueFrom:
