@@ -22,3 +22,9 @@ server:
 configs:
   params:
     server.insecure: "true"
+  repositories:
+    ghcr-immich-charts:
+      url: ghcr.io/immich-app/immich-charts
+      name: ghcr-immich-charts
+      type: helm
+      enableOCI: "true"
