@@ -1,7 +1,7 @@
 ollama:
   enabled: true
   image:
-    tag: 0.40.0-rc6-rocm
+    tag: 0.40.0
     pullPolicy: Always
   ollama:
     gpu:
