@@ -26,7 +26,7 @@ cnpg:
 gotenberg:
   image:
     repository: docker.io/gotenberg/gotenberg
-    tag: 8.37.0
+    tag: 8.38.1
 
 ingress:
   nginx:
