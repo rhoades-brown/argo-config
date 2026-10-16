@@ -1,5 +1,5 @@
 image:
-  tag: 10.11.11
+  tag: 12.2.20261005-225228
 deploymentStrategy:
   type: Recreate
 
