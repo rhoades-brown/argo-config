@@ -1,5 +1,5 @@
 image:
-  tag: v2.0.8
+  tag: v2.0.9
 service:
   type: ClusterIP
 ingress:
